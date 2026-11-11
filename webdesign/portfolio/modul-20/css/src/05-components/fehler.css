@@ -1,0 +1,27 @@
+/* Fehlerliste und Fehlermeldungen am Feld */
+.fehlerliste {
+  padding: var(--space-3);
+  margin-block-end: var(--space-3);
+  border: 3px solid var(--color-error);
+  border-radius: var(--radius);
+}
+
+.fehlerliste p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.fehlerliste:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.fehlermeldung {
+  margin: var(--space-1) 0 0;
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.fehlermeldung::before {
+  content: "Fehler: ";
+}

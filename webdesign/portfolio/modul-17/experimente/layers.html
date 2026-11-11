@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Cascade Layers</title>
+  <style>
+    /* Reihenfolge festlegen: spätere Ebenen gewinnen. Das @import muss vor allen Regeln stehen (außer @layer-Anweisungen). */
+    @layer vendor, a, b, components;
+    @import url("fremd.css") layer(vendor);
+
+    /* Fall 1: Spätere Ebene gewinnt gegen frühere – auch gegen eine ID */
+    @layer a { #fall1 { color: red; } }
+    @layer b { .fall1 { color: blue; } }
+
+    /* Fall 2: Regeln ohne Ebene gewinnen gegen alle Ebenen */
+    @layer b { #fall2 { color: purple; } }
+    .fall2 { color: green; }
+
+    /* Fall 3: Bei !important dreht sich die Reihenfolge um */
+    @layer a { .fall3 { color: red !important; } }
+    @layer b { .fall3 { color: blue !important; } }
+
+    /* Fall 4: Fremd-CSS in der Ebene "vendor" verliert gegen eigenes CSS, obwohl es spezifischer ist */
+    @layer components { .knopf-a { background: teal; } }
+
+    /* Fall 5: Dasselbe Fremd-CSS ohne Ebene gewinnt wegen der höheren Spezifität */
+    body .knopf-b.knopf-b { background: orange; }
+    @layer components { .knopf-b { background: teal; } }
+
+    body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 44rem; }
+    .probe { padding: .25rem .5rem; }
+    table { border-collapse: collapse; margin-block: 1rem; }
+    th, td { border: 1px solid #888; padding: .25rem .75rem; text-align: start; vertical-align: top; }
+  </style>
+</head>
+<body>
+  <h1>Cascade Layers</h1>
+  <p>Jede Zeile zeigt eine Probe und die tatsächlich angewendete Farbe. Lies die Regeln im Quelltext und sage das Ergebnis voraus, bevor du auf die Spalte „Ergebnis“ schaust.</p>
+
+  <table>
+    <thead><tr><th scope="col">Fall</th><th scope="col">Probe</th><th scope="col">Ergebnis</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1 Spätere Ebene gegen ID</th><td><span id="fall1" class="fall1 probe">Text</span></td><td data-feld="color"></td></tr>
+      <tr><th scope="row">2 Ohne Ebene gegen Ebene</th><td><span id="fall2" class="fall2 probe">Text</span></td><td data-feld="color"></td></tr>
+      <tr><th scope="row">3 !important</th><td><span class="fall3 probe">Text</span></td><td data-feld="color"></td></tr>
+      <tr><th scope="row">4 Fremd-CSS in Ebene</th><td><span class="knopf-a probe">Knopf</span></td><td data-feld="backgroundColor"></td></tr>
+      <tr><th scope="row">5 Fremd-CSS ohne Ebene</th><td><span class="knopf-b probe">Knopf</span></td><td data-feld="backgroundColor"></td></tr>
+    </tbody>
+  </table>
+  <p id="meldung" role="status"></p>
+
+  <script>
+    /* Die Ergebnisspalte füllt das Skript mit dem berechneten Wert. */
+    document.querySelectorAll("tr").forEach((tr) => {
+      const probe = tr.querySelector(".probe");
+      const feld = tr.querySelector("[data-feld]");
+      if (probe && feld) feld.textContent = getComputedStyle(probe)[feld.dataset.feld];
+    });
+    window.ERGEBNIS = [...document.querySelectorAll("[data-feld]")].map((e) => e.textContent);
+  </script>
+</body>
+</html>

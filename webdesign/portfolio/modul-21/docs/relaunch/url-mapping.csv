@@ -1,0 +1,11 @@
+# alt;neu;status   (410 = bewusst entfernt, kein Ziel)
+/index.php;/;301
+/index.php?id=2;/lebenslauf/;301
+/index.php?id=3;/projekte/;301
+/kontakt.html;/kontakt/;301
+/ueber-mich.html;/lebenslauf/;301
+/referenzen/projekt-1.html;/projekte/;301
+/referenzen/projekt-2.html;/projekte/;301
+/downloads/lebenslauf.pdf;;410
+/blog/2019/erster-beitrag.html;/blog/erster-beitrag/;301
+/impressum.html;/impressum/;301

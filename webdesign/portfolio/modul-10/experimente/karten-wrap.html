@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Karten mit flex-wrap</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.5: flex-wrap erzeugt ein responsives Raster ohne Media Query. Die letzte Zeile wächst auf volle Breite. */
+    .karten { display: flex; flex-wrap: wrap; gap: 1rem; margin-block-end: 2rem; }
+    .karte { flex: 1 1 16rem; display: flex; flex-direction: column; background: #f5f8fc; border: 1px solid #c5d7ee; padding: 1rem; }
+    .karte h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .karte a { margin-block-start: auto; align-self: start; }
+    /* Gegenstück mit Grid: gleich breite Spalten auch in der letzten Zeile */
+    .raster { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+  </style>
+</head>
+<body>
+  <h1>Flex: letzte Zeile wächst</h1>
+  <div class="karten">
+    <article class="karte"><h2>Titel 1</h2><p>Kurzer Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 2</h2><p>Etwas längerer Text, damit die Karte höher wird und der Link unten bleibt.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 3</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 4</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 5</h2><p>Text.</p><a href="#">Mehr</a></article>
+  </div>
+  <h1>Grid: gleich breite Spalten</h1>
+  <div class="raster">
+    <article class="karte"><h2>Titel 1</h2><p>Kurzer Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 2</h2><p>Etwas längerer Text, damit die Karte höher wird und der Link unten bleibt.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 3</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 4</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Titel 5</h2><p>Text.</p><a href="#">Mehr</a></article>
+  </div>
+</body>
+</html>

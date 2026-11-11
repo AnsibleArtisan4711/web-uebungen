@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Farbnotationen</title>
+  <style>
+    /* Aufgabe 05.3: Hex, rgb, hsl und oklch beschreiben dieselbe Farbe. Der Name navy ist es nicht. */
+    div { padding: 1rem; margin-bottom: 0.5rem; color: white; }
+    .name  { background: navy; }
+    .hex   { background: #1a3c6e; }
+    .rgb   { background: rgb(26 60 110); }
+    .hsl   { background: hsl(215 62% 26%); }
+    .oklch { background: oklch(0.35 0.09 255); }
+    .mix   { background: color-mix(in oklch, #1a3c6e 70%, white); }
+    .alpha { background: rgb(26 60 110 / 50%); color: #1a1a1a; }
+  </style>
+</head>
+<body>
+  <div class="name">Name: navy</div>
+  <div class="hex">Hex: #1a3c6e</div>
+  <div class="rgb">rgb(26 60 110)</div>
+  <div class="hsl">hsl(215 62% 26%)</div>
+  <div class="oklch">oklch(0.35 0.09 255)</div>
+  <div class="mix">color-mix(in oklch, #1a3c6e 70%, white)</div>
+  <div class="alpha">rgb(26 60 110 / 50%)</div>
+</body>
+</html>

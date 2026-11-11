@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Animation Performance (left gegen transform)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; }
+    .bahn { position: relative; block-size: 4rem; background: #eef3fa; overflow: hidden; }
+    .box { position: absolute; inset-block-start: 1rem; inline-size: 2rem; block-size: 2rem; background: #1a3c6e; }
+    /* Variante A: left animiert den Layout-Wert. Variante B: transform läuft im Compositor. */
+    .links .box { animation: mit-left 1s linear infinite alternate; }
+    .trans .box { animation: mit-transform 1s linear infinite alternate; }
+    @keyframes mit-left { from { left: 0; } to { left: 20rem; } }
+    @keyframes mit-transform { from { transform: translateX(0); } to { transform: translateX(20rem); } }
+  </style>
+</head>
+<body>
+  <h1>left gegen transform</h1>
+  <p>Aufruf mit <code>?modus=left</code> oder <code>?modus=transform</code>. Layout-Zähler stehen in den DevTools unter <em>Performance</em>.</p>
+  <div class="bahn" id="bahn"><div class="box"></div></div>
+  <script>
+    "use strict";
+    const modus = new URLSearchParams(location.search).get("modus");
+    document.getElementById("bahn").classList.add(modus === "left" ? "links" : "trans");
+  </script>
+</body>
+</html>

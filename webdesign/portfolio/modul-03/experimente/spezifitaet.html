@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Spezifität und Reihenfolge</title>
+  <style>
+    /* Aufgabe 03.4 und 03.5: Welche Farbe hat welcher Text? Erst überlegen, dann prüfen. */
+    a          { color: black; }
+    .menu a    { color: blue; }
+    a:hover    { color: red; }
+
+    p.info     { color: green; }
+    .box p     { color: blue; }
+
+    #kopf p    { color: purple; }
+    .a.b.c.d.e.f.g.h.i.j p { color: orange; }
+  </style>
+</head>
+<body>
+  <nav class="menu"><a href="#">Link im Menü (Hover!)</a></nav>
+
+  <div class="box"><p class="info">Absatz 1: p.info in .box</p></div>
+
+  <div id="kopf" class="a b c d e f g h i j"><p>Absatz 2: ID gegen zehn Klassen</p></div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+# BEISPIEL, nicht aktiv: Bereitstellung auf GitHub Pages per Workflow (Übung 19.5).
+# Zum Einsatz nach .github/workflows/deploy.yml kopieren, in den Repository-Einstellungen unter „Pages“ die Quelle „GitHub Actions“ wählen.
+# Nicht getestet: Ich habe den Workflow nicht auf GitHub ausgeführt. Die Berechtigungen (pages: write, id-token: write) und
+# actions/deploy-pages@v4 entsprechen dem Beispiel in der README der Action; die Version von upload-pages-artifact ist nicht geprüft.
+# Wichtig: GitHub Pages setzt keine eigenen Antwort-Header (siehe Übung 19.4). CSP und Referrer-Policy bleiben daher im <meta>-Tag.
+name: Deploy
+
+on:
+  workflow_dispatch:   # nur von Hand auslösen
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: portfolio/modul-19
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: portfolio/modul-19/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: portfolio/modul-19/dist
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

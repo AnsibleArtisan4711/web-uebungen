@@ -1,0 +1,6 @@
+@font-face {
+  font-family: "Beispielschrift";
+  src: url("fonts/dejavu-sans-latin.woff2") format("woff2");
+  font-display: swap;
+}
+body { font-family: "Beispielschrift", sans-serif; margin: 1rem; }

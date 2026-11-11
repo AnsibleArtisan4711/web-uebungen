@@ -1,0 +1,83 @@
+/* Portfolio, Modul 02: Basis aus Modul 01 plus Navigation und Skip-Link */
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+
+h1,
+h2,
+h3 {
+  color: #1a3c6e;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Kopfbereich */
+.site-name {
+  font-weight: 700;
+  color: #1a3c6e;
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+nav a[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Skip-Link: nur bei Tastaturfokus sichtbar (Details in Modul 14) */
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  background: #ffffff;
+  padding: 0.5rem 1rem;
+}
+
+/* Inhaltsbereiche */
+article {
+  margin: 1.5rem 0;
+}
+
+aside {
+  border-left: 4px solid #1a3c6e;
+  padding-left: 1rem;
+  margin: 2rem 0;
+}
+
+figure {
+  margin: 1rem 0;
+}
+
+figcaption {
+  font-size: 0.875rem;
+}
+
+footer {
+  margin-top: 3rem;
+  font-size: 0.875rem;
+}

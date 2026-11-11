@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Timing Functions</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; }
+    .spur { background: #eef3fa; margin-block: .5rem; padding: .25rem; }
+    .kugel { inline-size: 2rem; block-size: 2rem; border-radius: 50%; background: #1a3c6e; }
+    .los .kugel { transform: translateX(var(--weg, 20rem)); }
+    /* Nur transform wird animiert, jede Spur hat eine andere Kurve (Dauer 1 s) */
+    .kugel { transition: transform 1s var(--kurve); }
+    button { font: inherit; min-height: 2.75rem; padding-inline: 1rem; }
+    :focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .kugel { transition-duration: 0.01ms; } }
+    @media (max-width: 30em) { .los .kugel { --weg: 9rem; } }
+  </style>
+</head>
+<body>
+  <h1>Timing Functions</h1>
+  <p><button type="button" id="start" aria-pressed="false">Start / Zurück</button></p>
+  <div id="bahn">
+    <div class="spur" style="--kurve: linear"><div class="kugel"></div>linear</div>
+    <div class="spur" style="--kurve: ease"><div class="kugel"></div>ease (Standard)</div>
+    <div class="spur" style="--kurve: ease-in"><div class="kugel"></div>ease-in</div>
+    <div class="spur" style="--kurve: ease-out"><div class="kugel"></div>ease-out</div>
+    <div class="spur" style="--kurve: ease-in-out"><div class="kugel"></div>ease-in-out</div>
+    <div class="spur" style="--kurve: steps(4)"><div class="kugel"></div>steps(4)</div>
+    <div class="spur" style="--kurve: cubic-bezier(0.34, 1.56, 0.64, 1)"><div class="kugel"></div>cubic-bezier mit Überschwingen</div>
+  </div>
+  <script>
+    "use strict";
+    const b = document.getElementById("bahn"), k = document.getElementById("start");
+    k.addEventListener("click", () => {
+      const an = b.classList.toggle("los");
+      k.setAttribute("aria-pressed", String(an));
+      b.querySelectorAll(".spur").forEach((s) => s.classList.toggle("los", an));
+    });
+  </script>
+</body>
+</html>

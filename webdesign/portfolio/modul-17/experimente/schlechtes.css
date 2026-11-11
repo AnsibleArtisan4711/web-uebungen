@@ -1,0 +1,9 @@
+/* Absichtlich schlechtes CSS für die Übung 17.1: Nicht nachmachen! */
+#kopf .navigation ul li a.link { color: red !important; }
+#kopf .navigation ul li a { color: blue !important; }
+div.inhalt div.box div.titel h2 { font-size: 20px !important; }
+.box .titel h2 { font-size: 22px; }
+body #seite .inhalt .box .text p span.wichtig { color: #b00 !important; }
+a { color: green !important; }
+.rot { color: red; }
+.rot { color: red; }

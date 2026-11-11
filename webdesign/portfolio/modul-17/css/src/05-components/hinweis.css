@@ -1,0 +1,9 @@
+.hinweis {
+  border-inline-start: 4px solid var(--color-primary);
+  padding-inline-start: var(--space-3);
+  margin-block: var(--space-4);
+}
+
+.kenntnisse > li:nth-child(odd) {
+  background: var(--color-surface-alt);
+}

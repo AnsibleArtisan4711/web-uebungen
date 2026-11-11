@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: flex-basis, grow und shrink</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.4: Vergleiche die Werte. Der Container ist 40rem breit, die Items haben unterschiedlich langen Text. */
+    .reihe { display: flex; gap: 0.5rem; width: 40rem; max-width: 100%; margin-block: 0.5rem 1.5rem; background: #eef3fa; padding: 0.5rem; }
+    .eins > * { flex: 1; }
+    .auto > * { flex: auto; }
+    .fest > :first-child { flex: 0 0 200px; }
+    .fest > :not(:first-child) { flex: 1; }
+  </style>
+</head>
+<body>
+  <h2>flex: 1 (= 1 1 0): gleich breit</h2>
+  <div class="reihe eins"><div class="kasten">kurz</div><div class="kasten">ein deutlich längerer Text im Item</div><div class="kasten">mittel lang</div></div>
+  <h2>flex: auto (= 1 1 auto): Inhalt bestimmt die Ausgangsbreite</h2>
+  <div class="reihe auto"><div class="kasten">kurz</div><div class="kasten">ein deutlich längerer Text im Item</div><div class="kasten">mittel lang</div></div>
+  <h2>flex: 0 0 200px am ersten Item</h2>
+  <div class="reihe fest"><div class="kasten">fest 200px</div><div class="kasten">flexibel</div><div class="kasten">flexibel</div></div>
+</body>
+</html>

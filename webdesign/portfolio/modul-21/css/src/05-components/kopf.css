@@ -1,0 +1,62 @@
+/* Kopf (Modul 10): Logo links, Navigation rechts, bricht auf schmalen Bildschirmen um */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-4);
+  padding-block: var(--space-2);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__name {
+  margin-inline-end: auto; /* schiebt alle folgenden Items nach rechts */
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem; /* Tippfläche 44 px, gemessen im Gerätetest */
+  font-weight: 700;
+  color: var(--color-heading);
+  text-decoration: none;
+}
+
+/* Navigation mit Flexbox (Details in Modul 10) */
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+}
+
+.nav a[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: -999px;
+}
+
+.skip-link:focus {
+  inset-inline-start: 1rem;
+  inset-block-start: 1rem;
+  background: var(--color-bg);
+  padding: var(--space-2) var(--space-3);
+  z-index: var(--z-skip);
+}
+
+@media (min-width: 40em) {
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-sticky);
+  }
+}

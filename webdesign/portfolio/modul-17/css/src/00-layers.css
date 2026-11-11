@@ -1,0 +1,3 @@
+/* Reihenfolge der Ebenen: spätere Ebenen gewinnen gegen frühere, unabhängig von der Spezifität.
+   Ungelayerte Regeln gewinnen gegen alle Ebenen (darum steht hier nichts ungelayert). */
+@layer vendor, reset, tokens, base, objects, components, utilities;

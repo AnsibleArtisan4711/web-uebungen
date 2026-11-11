@@ -1,0 +1,9 @@
+/* Migrierte Fassung von legacy.css: Flexbox statt float, rem statt px, keine Präfixe, ohne Erzwingen von Regeln */
+body { font-family: Arial, sans-serif; font-size: 0.75rem; margin: 0; background: #eee; }
+.kopf { text-align: center; color: navy; font-weight: bold; font-size: 1.5rem; }
+.seite { display: flex; flex-wrap: wrap; max-width: 50rem; gap: 1rem; }
+.navigation { flex: 1 1 12rem; }
+.navigation ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
+#inhalt { flex: 3 1 20rem; }
+.hinweis { color: red; font-size: 0.75rem; }
+img { max-width: 100%; height: auto; }

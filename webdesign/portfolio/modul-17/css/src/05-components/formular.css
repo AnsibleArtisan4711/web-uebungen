@@ -1,0 +1,66 @@
+/* Formulare */
+.feld {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.feld label,
+legend {
+  font-weight: 600;
+}
+
+.feld__hinweis {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+:is(input:not([type="checkbox"], [type="radio"]), textarea, select) {
+  font: inherit;
+  min-height: 2.75rem;
+  padding: var(--space-2);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+:is(input, textarea, select):focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Fehlerzustand erst nach Interaktion, nicht beim Laden; nicht nur Farbe: dicker Rahmen */
+:is(input, textarea, select):user-invalid,
+:is(input, textarea, select)[aria-invalid="true"] {
+  border-color: var(--color-error);
+  border-width: 4px;
+}
+
+fieldset {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+}
+
+.auswahl {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;      /* große Klickfläche */
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  flex: none;               /* darf nicht schrumpfen, sonst wird die Box schmal (gemessen: 13 px) */
+  width: 1.5rem;            /* 24 px: Mindestgröße nach WCAG 2.5.8 */
+  height: 1.5rem;
+  accent-color: var(--color-primary);
+}
+
+.fehler {
+  margin: 0;
+  color: var(--color-error);
+  font-weight: 600;
+}

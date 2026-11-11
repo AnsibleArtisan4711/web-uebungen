@@ -1,0 +1,188 @@
+/* Portfolio, Modul 04: Box Model, Display, Positionierung.
+   Die Reihenfolge der Layer entscheidet, nicht die Spezifität. */
+@layer reset, base, components, utilities;
+
+/* 1. Reset: möglichst wenig */
+@layer reset {
+  /* Padding und Border zählen zur Breite: width: 50% meint wirklich die Hälfte */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+/* 2. Base: Typ-Selektoren für Grundstile, :where() hält die Spezifität bei 0 */
+@layer base {
+  /* Zentrale Ebenen statt Zahlenrennen (z-index) */
+  :root {
+    --z-badge: 10;
+    --z-sticky: 20;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    width: min(100% - 2rem, 40rem);
+    margin-inline: auto;
+    padding-block: 2rem;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+
+  :is(h1, h2, h3) {
+    color: #1a3c6e;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: #0b4fb3;
+  }
+
+  a:hover {
+    color: #7a1f1f;
+  }
+
+  /* Tastaturfokus sichtbar machen, ohne outline: none */
+  a:focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+  }
+
+  /* Externe Links erhalten einen Pfeil */
+  a[href^="http"]::after {
+    content: " \2197";
+  }
+
+  :where(ul, ol) {
+    padding-left: 1.25rem;
+  }
+
+  ::selection {
+    background: #cfe0f7;
+  }
+
+  footer {
+    margin-top: 3rem;
+    font-size: 0.875rem;
+  }
+
+  figure {
+    margin: 1rem 0;
+  }
+
+  figcaption {
+    font-size: 0.875rem;
+  }
+}
+
+/* 3. Components: Klassen für wiederverwendbare Bausteine */
+@layer components {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    padding-block: 0.5rem;
+    background: #ffffff;
+    border-bottom: 1px solid #c5d7ee;
+  }
+
+  .badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: var(--z-badge);
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    background: #1a3c6e;
+    color: #ffffff;
+    font-size: 0.75rem;
+  }
+
+  .lesetext {
+    max-width: 65ch;
+  }
+
+  .umbruch {
+    overflow-wrap: anywhere;   /* lange Wörter und URLs brechen um */
+  }
+
+  .site-name {
+    font-weight: 700;
+    color: #1a3c6e;
+    text-decoration: none;
+  }
+
+  .nav ul {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .nav li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .nav a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    background: #ffffff;
+    padding: 0.5rem 1rem;
+  }
+
+  .karte {
+    position: relative;      /* Bezugspunkt für das Badge */
+    isolation: isolate;      /* eigener Stacking Context */
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
+    border: 1px solid #c5d7ee;
+    background: #f5f8fc;
+  }
+
+  .karte h2,
+  .karte h3 {
+    margin-top: 0.5rem;
+  }
+
+  .hinweis {
+    border-left: 4px solid #1a3c6e;
+    padding-left: 1rem;
+    margin: 2rem 0;
+  }
+
+  /* Zebra-Muster, nur direkte Kinder der Liste */
+  .kenntnisse > li:nth-child(odd) {
+    background: #eef3fa;
+  }
+}
+
+/* 4. Utilities: gewinnen immer gegen frühere Layer */
+@layer utilities {
+  .text-klein {
+    font-size: 0.875rem;
+  }
+
+  .mt-0 {
+    margin-top: 0;
+  }
+}

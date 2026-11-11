@@ -1,0 +1,6 @@
+{
+  "name": "portfolio-modul-12",
+  "private": true,
+  "description": "Portfolio nach Modul 12 (JavaScript). Keine Abhängigkeiten, Tests mit dem in Node eingebauten Test-Runner.",
+  "scripts": { "test": "node --test" }
+}

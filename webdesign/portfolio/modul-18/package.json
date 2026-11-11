@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-modul-18",
+  "private": true,
+  "description": "Portfolio nach Modul 18 (Security und Datenschutz). Keine Abhängigkeiten, Tests mit dem in Node eingebauten Test-Runner.",
+  "scripts": {
+    "test": "node --test",
+    "css": "node tools/css-bauen.js",
+    "css:pruefen": "node tools/css-bauen.js --pruefen",
+    "budget": "node tools/budget-check.js",
+    "security": "node tools/security-check.js",
+    "serve": "node tools/server.js 8080"
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: XSS sicher (textContent)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 44rem; line-height: 1.5; }
+    table { border-collapse: collapse; margin-block: 1rem; }
+    th, td { border: 1px solid #888; padding: .25rem .75rem; text-align: start; vertical-align: top; }
+    code, pre { font-family: ui-monospace, Consolas, monospace; }
+    .status { padding: .5rem 1rem; border: 2px solid #888; }
+  </style>
+</head>
+<body>
+  <h1>XSS sicher (textContent)</h1>
+  <p>Dasselbe mit <code>textContent</code>: Die Eingabe bleibt Text.</p>
+  <p id="gruss">Hallo Gast</p>
+  <p>Teste mit: <a href="?name=Max">Normaler Name</a> · <a href="?name=%3Cimg%20src%3Dx%20onerror%3D%22document.body.dataset.xss%3D%27ausgefuehrt%27%22%3E">Name mit Schadcode</a> (ein harmloser Beispielcode, er setzt nur ein Attribut am <code>body</code>).</p>
+  <p id="status" class="status" role="status">Noch nichts geprüft.</p>
+  <script src="xss.js" data-modus="sicher"></script>
+</body>
+</html>

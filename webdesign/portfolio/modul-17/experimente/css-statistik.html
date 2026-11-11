@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: CSS-Statistik</title>
+  <!-- Das zu prüfende Stylesheet. Mit ?datei=schlechtes.css lässt sich ein anderes laden. -->
+  <script>
+    const datei = new URLSearchParams(location.search).get("datei") || "../css/main.css";
+    document.write('<link rel="stylesheet" id="ziel" href="' + datei.replace(/[^\w./-]/g, "") + '">');
+  </script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 40rem; }
+    table { border-collapse: collapse; }
+    th, td { padding: .25rem .75rem; border: 1px solid #888; text-align: start; }
+    .zahl { text-align: end; }
+  </style>
+</head>
+<body>
+  <h1>CSS-Statistik</h1>
+  <p>Das Skript liest die Regeln über das CSSOM. Das geht nur über einen Webserver (<code>npm run serve</code>), nicht per Doppelklick auf die Datei.</p>
+  <p id="fehler" role="alert"></p>
+  <table id="tabelle"><caption>Ergebnis</caption><tbody></tbody></table>
+  <script>
+    /* Spezifität als [ids, klassen, typen]. Vereinfachtes Verfahren:
+       :where() zählt 0, :is()/:not()/:has() zählen wie ihr spezifischstes Argument. */
+    function spezifitaet(sel) {
+      let s = sel.replace(/"[^"]*"|'[^']*'/g, "").replace(/\[[^\]]*\]/g, " [a] ");
+      const klammer = /:(where|is|not|has)\(([^()]*)\)/;
+      let extra = [0, 0, 0], m;
+      while ((m = klammer.exec(s))) {
+        if (m[1] !== "where") {
+          const besten = m[2].split(",").map((t) => spezifitaet(t.trim())).sort(vergleich).pop() || [0, 0, 0];
+          extra = extra.map((v, i) => v + besten[i]);
+        }
+        s = s.replace(klammer, " ");
+      }
+      const ids = (s.match(/#[\w-]+/g) || []).length;
+      const klassen = (s.match(/\.[\w-]+|\[a\]|(?<!:):(?!:)[\w-]+/g) || []).length;
+      const typen = (s.match(/(^|[\s>+~])[a-zA-Z][\w-]*/g) || []).length + (s.match(/::[\w-]+/g) || []).length;
+      return [ids + extra[0], klassen + extra[1], typen + extra[2]];
+    }
+    const vergleich = (a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2];
+
+    function durchlaufe(regeln, ebene, f) {
+      for (const r of regeln) {
+        if (r instanceof CSSLayerBlockRule) durchlaufe(r.cssRules, r.name || ebene, f);
+        else if (r.cssRules && !(r instanceof CSSStyleRule)) durchlaufe(r.cssRules, ebene, f);
+        else if (r instanceof CSSStyleRule) f(r, ebene);
+      }
+    }
+
+    function auswerten() {
+      const blatt = document.getElementById("ziel").sheet;
+      const ergebnis = { regeln: 0, selektoren: 0, ids: 0, important: 0, hoechste: [0, 0, 0], hoechsteSel: "", tiefste: 0, tiefsteSel: "", ebenen: {} };
+      try { blatt.cssRules; } catch (e) { document.getElementById("fehler").textContent = "Kein Zugriff auf die Regeln. Bitte über einen Webserver öffnen."; return; }
+      durchlaufe(blatt.cssRules, "(ohne Ebene)", (r, ebene) => {
+        ergebnis.regeln += 1;
+        ergebnis.ebenen[ebene] = (ergebnis.ebenen[ebene] || 0) + 1;
+        for (let i = 0; i < r.style.length; i++) if (r.style.getPropertyPriority(r.style[i]) === "important") ergebnis.important += 1;
+        for (const sel of r.selectorText.split(/,(?![^()]*\))/)) {
+          const t = sel.trim();
+          ergebnis.selektoren += 1;
+          ergebnis.ids += (t.match(/#[\w-]+/g) || []).length;
+          const sp = spezifitaet(t);
+          if (vergleich(sp, ergebnis.hoechste) > 0) { ergebnis.hoechste = sp; ergebnis.hoechsteSel = t; }
+          const tiefe = t.replace(/\([^()]*\)/g, "").split(/\s*[\s>+~]\s*/).length;       // Zahl der zusammengesetzten Selektoren
+          if (tiefe > ergebnis.tiefste) { ergebnis.tiefste = tiefe; ergebnis.tiefsteSel = t; }
+        }
+      });
+      const zeilen = [
+        ["Regeln", ergebnis.regeln],
+        ["Selektoren", ergebnis.selektoren],
+        ["ID-Selektoren", ergebnis.ids],
+        ["!important-Angaben", ergebnis.important],
+        ["Höchste Spezifität", "(" + ergebnis.hoechste.join(",") + ")  " + ergebnis.hoechsteSel],
+        ["Längste Selektorkette", ergebnis.tiefste + "  " + ergebnis.tiefsteSel],
+        ["Regeln je Ebene", Object.entries(ergebnis.ebenen).map(([k, v]) => k + ": " + v).join(", ")],
+      ];
+      document.querySelector("#tabelle tbody").innerHTML = zeilen
+        .map(([k, v]) => `<tr><th scope="row">${k}</th><td>${String(v).replace(/</g, "&lt;")}</td></tr>`).join("");
+      window.ERGEBNIS = ergebnis;
+    }
+    window.addEventListener("load", auswerten);
+  </script>
+</body>
+</html>

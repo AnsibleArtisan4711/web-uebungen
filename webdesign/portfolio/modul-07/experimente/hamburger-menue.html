@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: ausklappbares Menü</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem; }
+    /* Mobil: Menü zugeklappt, solange aria-expanded="false" */
+    .menu-toggle { min-height: 2.75rem; padding: 0 1rem; font: inherit; }
+    .menu-toggle[aria-expanded="false"] + nav { display: none; }
+    nav ul { list-style: none; padding: 0; }
+    nav a { display: inline-flex; min-height: 2.75rem; align-items: center; }
+    /* Ab 40em: Menü immer sichtbar, Button weg */
+    @media (min-width: 40em) {
+      .menu-toggle { display: none; }
+      .menu-toggle[aria-expanded="false"] + nav { display: block; }
+      nav ul { display: flex; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Aufgabe 07.3: Echtes <button> mit aria-expanded und aria-controls.
+       Das Skript ist hier nur eine Vorschau (Modul 12 und 14 erklären es genau). -->
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menü</button>
+  <nav id="menu" aria-label="Hauptnavigation">
+    <ul>
+      <li><a href="#">Start</a></li>
+      <li><a href="#">Projekte</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+  <script>
+    const knopf = document.querySelector(".menu-toggle");
+    knopf.addEventListener("click", () => {
+      const offen = knopf.getAttribute("aria-expanded") === "true";
+      knopf.setAttribute("aria-expanded", String(!offen));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Mobile-First-Raster</title>
+  <style>
+    /* Aufgabe 07.2: Basis = Mobil, größere Viewports ergänzen per min-width. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; }
+    .raster { display: grid; gap: 1rem; grid-template-columns: 1fr; }      /* Mobil: 1 Spalte */
+    .raster > div { padding: 1rem; background: #c5d7ee; }
+
+    /* ... hier ergänzen: ab 40em 2 Spalten, ab 64em 3 Spalten ... */
+
+    @media print { .raster > div { background: none; border: 1px solid #000; } }
+  </style>
+</head>
+<body>
+  <div class="raster">
+    <div>Karte 1</div><div>Karte 2</div><div>Karte 3</div>
+    <div>Karte 4</div><div>Karte 5</div><div>Karte 6</div>
+  </div>
+</body>
+</html>

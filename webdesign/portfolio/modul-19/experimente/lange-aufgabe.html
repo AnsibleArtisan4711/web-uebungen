@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Lange Aufgaben im Hauptthread</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>Lange Aufgaben im Hauptthread</h1>
+  <p>Dieselbe Rechenarbeit, einmal am Stück und einmal in kleinen Häppchen. Öffne den Tab „Performance“ der Entwicklerwerkzeuge, nimm auf und klicke dann.</p>
+  <p>
+    <button type="button" id="am-stueck">Am Stück rechnen</button>
+    <button type="button" id="haeppchen">In Häppchen rechnen</button>
+  </p>
+  <p id="ergebnis" role="status">Noch nichts berechnet.</p>
+  <script src="lange-aufgabe.js"></script>
+</body>
+</html>

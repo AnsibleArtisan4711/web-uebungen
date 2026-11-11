@@ -1,0 +1,15 @@
+.intro {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.intro figure {
+  margin: 0;
+}
+
+@media (min-width: 40em) {
+  .intro {
+    grid-template-columns: 1fr 14rem;
+    align-items: start;
+  }
+}

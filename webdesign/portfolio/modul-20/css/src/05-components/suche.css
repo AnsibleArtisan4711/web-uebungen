@@ -1,0 +1,12 @@
+/* Suche */
+.suche {
+  display: grid;
+  gap: var(--space-1);
+  max-inline-size: 24rem;
+}
+
+.suche label {
+  font-weight: 600;
+}
+
+/* Das Eingabefeld selbst gestaltet die allgemeine Regel für Formularfelder (formular.css). */

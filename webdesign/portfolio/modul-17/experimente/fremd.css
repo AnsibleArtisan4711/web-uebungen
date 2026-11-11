@@ -1,0 +1,2 @@
+/* Stellvertreter für Fremd-CSS (Bibliothek). Absichtlich mit hoher Spezifität geschrieben, wie es viele Bibliotheken tun. */
+body .knopf-a.knopf-a { background: orange; }

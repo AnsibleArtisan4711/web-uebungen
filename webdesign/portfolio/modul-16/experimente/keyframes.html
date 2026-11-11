@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Keyframes, fill-mode und Pause</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; }
+    .reihe { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .feld { inline-size: 9rem; padding: .75rem; background: #c5d7ee; }
+    @keyframes einblenden { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes puls { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    /* delay 1s: ohne fill-mode sieht man vor dem Start den Endzustand, mit "backwards" den Anfangszustand */
+    .kein-fill  { animation: einblenden .4s ease-out 1s; }
+    .backwards  { animation: einblenden .4s ease-out 1s backwards; }
+    .both       { animation: einblenden .4s ease-out 1s both; }
+    .puls       { animation: puls 2s ease-in-out 3; }          /* 3 Wiederholungen statt infinite */
+    .endlos     { animation: puls 2s ease-in-out infinite; }
+    .pausiert .endlos { animation-play-state: paused; }
+    button { font: inherit; min-height: 2.75rem; padding-inline: 1rem; }
+    :focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <h1>Keyframes</h1>
+  <div class="reihe">
+    <div class="feld kein-fill">ohne fill-mode</div>
+    <div class="feld backwards">backwards</div>
+    <div class="feld both">both</div>
+    <div class="feld puls">3 Pulse</div>
+    <div class="feld endlos">endlos</div>
+  </div>
+  <p><button type="button" id="pause" aria-pressed="false">Endlos-Animation pausieren</button></p>
+  <script>
+    "use strict";
+    const k = document.getElementById("pause");
+    k.addEventListener("click", () => {
+      const an = document.body.classList.toggle("pausiert");
+      k.setAttribute("aria-pressed", String(an));
+    });
+  </script>
+</body>
+</html>

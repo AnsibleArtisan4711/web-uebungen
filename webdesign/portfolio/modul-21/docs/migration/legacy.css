@@ -1,0 +1,10 @@
+/* Alte Stylesheet-Datei einer erfundenen Vorgängerseite */
+body { font-family: Arial; font-size: 12px; margin: 0; }
+.spalte-links { float: left; width: 200px; }
+.spalte-rechts { float: left; width: 600px; }
+.clear { clear: both; }
+.clearfix { *zoom: 1; }
+.kasten { display: -webkit-box; display: -moz-box; background: #fff; filter: alpha(opacity=80); }
+.schatten { -webkit-box-shadow: 0 0 5px #000; -moz-box-shadow: 0 0 5px #000; box-shadow: 0 0 5px #000; }
+.titel { color: #003366 !important; font-size: 18px !important; }
+@media screen and (max-width: 480px) { .spalte-links { float: none; width: auto; } }

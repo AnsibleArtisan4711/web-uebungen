@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Leiste mit Logo links</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.3: Logo links, drei Links rechts, vertikal mittig. margin-inline-end: auto schiebt den Rest nach rechts. */
+    .leiste { display: flex; align-items: center; gap: 1rem; min-height: 5rem; background: #eef3fa; padding-inline: 1rem; }
+    .leiste .logo { margin-inline-end: auto; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="leiste">
+    <a class="logo" href="#">Logo</a>
+    <a href="#">A</a>
+    <a href="#">B</a>
+    <a href="#">C</a>
+  </header>
+</body>
+</html>

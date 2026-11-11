@@ -1,0 +1,995 @@
+/* Portfolio, Modul 12: wie Modul 11, dazu Bausteine für JavaScript-Verbesserungen (Menü, Filter, Suche, Fehlerliste). */
+@layer reset, tokens, base, components, utilities;
+
+@layer reset {
+  /* Das hidden-Attribut muss immer gewinnen, auch gegen display-Regeln von Komponenten */
+  [hidden] {
+    display: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+/* Design Tokens: Ebene 1 = Palette (primitiv), Ebene 2 = Bedeutung (semantisch) */
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* Primitive Tokens: reine Werte, keine Bedeutung */
+    --blue-50: #f5f8fc;
+    --blue-100: #eef3fa;
+    --blue-200: #c5d7ee;
+    --blue-300: #8fb4ee;
+    --blue-600: #0b4fb3;
+    --blue-700: #1a3c6e;
+    --gray-100: #eeeeee;
+    --gray-900: #1a1a1a;
+    --gray-950: #121212;
+    --red-300: #f2a0a0;
+    --red-800: #7a1f1f;
+    --white: #ffffff;
+
+    /* Abstände, Radius, Schrift */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 2rem;
+    --radius: 0.5rem;
+    --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, Consolas, "Courier New", monospace;
+
+    /* Ebenen */
+    --z-badge: 10;
+    --z-sticky: 20;
+    --z-skip: 30;      /* Skip-Link liegt über dem haftenden Kopf (WCAG 2.4.11) */
+
+    /* Semantische Tokens (hell). Komponenten verwenden nur diese. */
+    --color-bg: var(--white);
+    --color-text: var(--gray-900);
+    --color-heading: var(--blue-700);
+    --color-link: var(--blue-600);
+    --color-link-hover: var(--red-800);
+    --color-surface: var(--blue-50);
+    --color-surface-alt: var(--blue-100);
+    --color-border: var(--blue-200);
+    --color-border-strong: #5f7391;
+    --color-primary: var(--blue-700);
+    --color-on-primary: var(--white);
+    --color-focus: #1a73e8;
+    --color-error: #b00020;
+  }
+
+  /* Dunkles Theme folgt der Systemeinstellung ... */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg: var(--gray-950);
+      --color-text: var(--gray-100);
+      --color-heading: var(--blue-300);
+      --color-link: var(--blue-300);
+      --color-link-hover: var(--red-300);
+      --color-surface: #1b2433;
+      --color-surface-alt: #222d40;
+      --color-border: #4a5d80;
+      --color-border-strong: #8da2c4;
+      --color-primary: var(--blue-300);
+      --color-on-primary: var(--gray-950);
+      --color-focus: var(--blue-300);
+      --color-error: #ff8a95;
+    }
+  }
+
+  /* ... und lässt sich per Attribut erzwingen (Umschalter folgt in Modul 12) */
+  :root[data-theme="dark"] {
+    --color-bg: var(--gray-950);
+    --color-text: var(--gray-100);
+    --color-heading: var(--blue-300);
+    --color-link: var(--blue-300);
+    --color-link-hover: var(--red-300);
+    --color-surface: #1b2433;
+    --color-surface-alt: #222d40;
+    --color-border: #4a5d80;
+    --color-border-strong: #8da2c4;
+    --color-primary: var(--blue-300);
+    --color-on-primary: var(--gray-950);
+    --color-focus: var(--blue-300);
+    --color-error: #ff8a95;
+  }
+}
+
+@layer base {
+  :root {
+    font-family: var(--font-body);
+    line-height: 1.5;
+    scroll-padding-block-start: 6rem;   /* haftender Kopf darf den Fokus nicht verdecken */
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;   /* Fußzeile bleibt bei kurzem Inhalt unten (main bekommt flex: 1) */
+    min-block-size: 100dvh;
+    width: min(100% - 2rem, 64rem);
+    margin-inline: auto;
+    padding-block: var(--space-4);
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  /* Überschriften: enge Zeilenhöhe, ausgewogener Umbruch, fluide Größe */
+  :is(h1, h2, h3) {
+    color: var(--color-heading);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.375rem, 1.2rem + 0.8vw, 2rem);
+  }
+
+  /* Fließtext: Silbentrennung dank lang="de", keine einzelnen Wörter am Zeilenende */
+  p {
+    max-width: 65ch;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: var(--color-link);
+  }
+
+  a:hover {
+    color: var(--color-link-hover);
+  }
+
+  a:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  a[href^="http"]::after {
+    content: " \2197";
+  }
+
+  :where(ul, ol) {
+    padding-inline-start: 1.25rem;
+  }
+
+  ::selection {
+    background: var(--color-surface-alt);
+  }
+
+  figure {
+    margin-block: var(--space-3);
+    margin-inline: 0;
+  }
+
+  figcaption {
+    font-size: 0.875rem;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: var(--space-3);
+    border-radius: var(--radius);
+    background: var(--color-surface-alt);
+  }
+
+  :is(code, kbd, pre) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  kbd {
+    padding: 0.1em 0.4em;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.25rem;
+  }
+
+  blockquote {
+    margin-inline: 0;
+    padding-inline-start: var(--space-3);
+    border-inline-start: 4px solid var(--color-border-strong);
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    margin-inline-start: var(--space-3);
+  }
+
+  video,
+  audio {
+    max-inline-size: 100%;
+  }
+
+  video {
+    block-size: auto;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  main {
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  footer {
+    margin-block-start: 3rem;
+    font-size: 0.875rem;
+  }
+}
+
+@layer components {
+  /* Kopf (Modul 10): Logo links, Navigation rechts, bricht auf schmalen Bildschirmen um */
+  .site-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--space-4);
+    padding-block: var(--space-2);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-name {
+    margin-inline-end: auto;   /* schiebt alle folgenden Items nach rechts */
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;   /* Tippfläche 44 px, gemessen im Gerätetest */
+    font-weight: 700;
+    color: var(--color-heading);
+    text-decoration: none;
+  }
+
+  /* Navigation mit Flexbox (Details in Modul 10) */
+  .nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+
+  .nav a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: -999px;
+  }
+
+  .skip-link:focus {
+    inset-inline-start: 1rem;
+    inset-block-start: 1rem;
+    background: var(--color-bg);
+    padding: var(--space-2) var(--space-3);
+    z-index: var(--z-skip);
+  }
+
+  /* Skip-Ziel: per Skript fokussierbar (tabindex="-1"), aber ohne sichtbaren Rahmen */
+  main:focus {
+    outline: none;
+  }
+
+  /* Links in Überschriften: Klickfläche mindestens 24 px hoch (WCAG 2.5.8) */
+  :is(h2, h3, h4) > a {
+    display: inline-block;
+    padding-block: var(--space-1);
+  }
+
+  .karte {
+    position: relative;
+    isolation: isolate;
+    margin-block: 1.5rem;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .karte h2,
+  .karte h3 {
+    margin-block-start: var(--space-2);
+  }
+
+  .badge {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-end: var(--space-2);
+    z-index: var(--z-badge);
+    padding: 0.125rem var(--space-2);
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: 0.75rem;
+  }
+
+  .hinweis {
+    border-inline-start: 4px solid var(--color-primary);
+    padding-inline-start: var(--space-3);
+    margin-block: var(--space-4);
+  }
+
+  .kenntnisse > li:nth-child(odd) {
+    background: var(--color-surface-alt);
+  }
+
+  /* Button: eine Komponente mit Varianten und Zuständen */
+  .btn {
+    --btn-bg: var(--color-primary);
+    --btn-fg: var(--color-on-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;                /* große Klickfläche */
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--btn-bg);
+    border-radius: var(--radius);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: color-mix(in oklch, var(--btn-bg), var(--color-text) 15%);
+    border-color: color-mix(in oklch, var(--btn-bg), var(--color-text) 15%);
+    color: var(--btn-fg);
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn--secondary {
+    --btn-bg: transparent;
+    --btn-fg: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .btn--secondary:hover {
+    background: var(--color-surface-alt);
+    border-color: var(--color-primary);
+    color: var(--btn-fg);
+  }
+
+  .btn[href^="http"]::after {
+    content: none;
+  }
+
+  /* ---- Responsive Bausteine: Basis = Mobil, größere Ansichten ergänzen ---- */
+  .intro {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .intro figure {
+    margin: 0;
+  }
+
+  /* Automatisch umbrechendes Raster ohne Media Query */
+  .karten {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  /* Jeder Slot ist ein Container: die Karte richtet sich nach IHRER Breite */
+  .karten-slot {
+    container-type: inline-size;
+    container-name: karte;
+  }
+
+  .karten-slot > .karte {
+    margin-block: 0;
+    block-size: 100%;
+  }
+
+  .karte--projekt {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-3);
+  }
+
+  /* Textblock der Karte: Spalte, Button wird mit margin auto nach unten geschoben */
+  .karte__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-inline-size: 0;
+  }
+
+  .karte__text > * {
+    margin: 0;
+  }
+
+  .karte__aktion {
+    margin-block-start: auto;
+    align-self: start;
+  }
+
+  .karte--projekt img {
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--radius);
+  }
+
+  @container karte (min-width: 30rem) {
+    .karte--projekt {
+      grid-template-columns: 12rem 1fr;
+      grid-template-rows: auto;
+      align-items: stretch;
+    }
+  }
+
+  @media (min-width: 40em) {
+    .site-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: var(--z-sticky);
+    }
+
+    .intro {
+      grid-template-columns: 1fr 14rem;
+      align-items: start;
+    }
+  }
+
+  /* Fußzeile (Modul 10) */
+  .site-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding-block: var(--space-3);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  .site-footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+
+  /* Gruppe von Buttons: nebeneinander, bei Platzmangel untereinander */
+  .aktionen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  /* Seitenlayouts mit Grid (Modul 11): benannte Bereiche, Quelltextreihenfolge = Leseordnung */
+  .blog-layout {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "liste"
+      "seite";
+  }
+
+  .blog-liste { grid-area: liste; }
+  .blog-seite { grid-area: seite; }
+
+  .blog-seite ul {
+    padding-inline-start: 1.25rem;
+  }
+
+  .lebenslauf-raster {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "stationen"
+      "kenntnisse"
+      "ausbildung";
+  }
+
+  .lebenslauf__stationen { grid-area: stationen; }
+  .lebenslauf__kenntnisse { grid-area: kenntnisse; }
+  .lebenslauf__ausbildung { grid-area: ausbildung; }
+
+  @media (min-width: 60em) {
+    .blog-layout {
+      grid-template-columns: minmax(0, 1fr) 16rem;
+      grid-template-areas: "liste seite";
+      align-items: start;
+    }
+
+    .lebenslauf-raster {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "stationen kenntnisse"
+        "ausbildung ausbildung";
+      align-items: start;
+    }
+  }
+
+  /* ---- JavaScript-Verbesserungen (Modul 12) ---- */
+  /* Menü-Knopf: wird von main.js eingefügt. Nur mit JavaScript ist das Menü auf schmalen Bildschirmen eingeklappt. */
+  .menue-knopf {
+    min-block-size: 2.75rem;
+    padding-inline: var(--space-3);
+    font: inherit;
+    color: var(--color-heading);
+    background: transparent;
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .menue-knopf:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .js .nav {
+    flex-basis: 100%;
+  }
+
+  .js .nav:not(.nav--offen) {
+    display: none;
+  }
+
+  @media (min-width: 40em) {
+    .js .nav {
+      flex-basis: auto;
+    }
+
+    .js .nav:not(.nav--offen) {
+      display: block;
+    }
+
+    .menue-knopf {
+      display: none;
+    }
+  }
+
+  /* Filter-Knöpfe */
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-block: var(--space-3);
+  }
+
+  .chip {
+    min-block-size: 2.75rem;
+    padding-inline: var(--space-3);
+    font: inherit;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 2px solid var(--color-border-strong);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .chip[aria-pressed="true"] {
+    color: var(--color-on-primary);
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .chip:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Suche */
+  .suche {
+    display: grid;
+    gap: var(--space-1);
+    max-inline-size: 24rem;
+  }
+
+  .suche label {
+    font-weight: 600;
+  }
+
+  .suche input {
+    padding: 0.625rem;
+    font: inherit;
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+
+  /* Fehlerliste und Fehlermeldungen am Feld */
+  .fehlerliste {
+    padding: var(--space-3);
+    margin-block-end: var(--space-3);
+    border: 3px solid var(--color-error);
+    border-radius: var(--radius);
+  }
+
+  .fehlerliste p {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .fehlerliste:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .fehlermeldung {
+    margin: var(--space-1) 0 0;
+    color: var(--color-error);
+    font-weight: 600;
+  }
+
+  .fehlermeldung::before {
+    content: "Fehler: ";
+  }
+
+  /* Brotkrumen (Modul 13) */
+  .brotkrumen ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    font-size: 0.875rem;
+  }
+  .brotkrumen li + li::before {
+    content: "/";
+    margin-inline-end: 0.5rem;
+  }
+
+  /* Interaktionsstates und Bewegung (Modul 15) */
+  .btn,
+  .chip {
+    /* Eigenschaften einzeln benennen, nie "all" */
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  /* Hover nur dort, wo es Hover gibt (Touch hat keinen). Tastaturfokus bekommt dasselbe Feedback. */
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .karte--projekt {
+    transition: transform 0.2s ease-out;
+  }
+
+  @media (hover: hover) {
+    .karte--projekt:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .karte--projekt:focus-within {
+    transform: translateY(-4px);
+  }
+
+  @keyframes einblenden {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Bewegung nur, wenn der Nutzer sie nicht abgeschaltet hat */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .karten .karte,
+    .blog-liste .karte {
+      /* Kein fill-mode "both": Ein bleibender Endzustand aus der Animation würde das Hover-Transform der Karte überstimmen */
+      animation: einblenden 0.4s ease-out;
+    }
+  }
+
+  /* Formulare */
+  .formular {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .feld {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .feld label,
+  legend {
+    font-weight: 600;
+  }
+
+  .feld-hinweis {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  :is(input:not([type="checkbox"], [type="radio"]), textarea, select) {
+    font: inherit;
+    min-height: 2.75rem;
+    padding: var(--space-2);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  :is(input, textarea, select):focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Fehlerzustand erst nach Interaktion, nicht beim Laden; nicht nur Farbe: dicker Rahmen */
+  :is(input, textarea, select):user-invalid,
+  :is(input, textarea, select)[aria-invalid="true"] {
+    border-color: var(--color-error);
+    border-width: 4px;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+
+  .auswahl {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;      /* große Klickfläche */
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    flex: none;               /* darf nicht schrumpfen, sonst wird die Box schmal (gemessen: 13 px) */
+    width: 1.5rem;            /* 24 px: Mindestgröße nach WCAG 2.5.8 */
+    height: 1.5rem;
+    accent-color: var(--color-primary);
+  }
+
+  .fehler {
+    margin: 0;
+    color: var(--color-error);
+    font-weight: 600;
+  }
+
+  /* Farbfelder für die Styleguide-Seite */
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .swatch {
+    display: block;
+    width: 6rem;
+    height: 3rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+
+  .swatch--bg { background: var(--color-bg); }
+  .swatch--surface { background: var(--color-surface); }
+  .swatch--primary { background: var(--color-primary); }
+  .swatch--link { background: var(--color-link); }
+  .swatch--text { background: var(--color-text); }
+  .swatch--border { background: var(--color-border); }
+
+  /* Tabellen (Modul 09): echte Daten, Scroll-Wrapper für schmale Viewports */
+  .tabelle-wrap {
+    overflow-x: auto;
+    margin-block: var(--space-4);
+  }
+
+  .tabelle-wrap:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+  }
+
+  caption {
+    text-align: start;
+    font-weight: 700;
+    padding-block: 0.5rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  thead th {
+    background: var(--color-surface-alt);
+    border-block-end: 2px solid var(--color-border-strong);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--color-surface);
+  }
+
+  :is(th, td).zahl {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media print {
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+  }
+}
+
+@layer utilities {
+  .lesetext {
+    max-width: 65ch;
+  }
+
+  .umbruch {
+    overflow-wrap: anywhere;
+  }
+
+  .text-klein {
+    font-size: 0.875rem;
+  }
+
+  .mt-0 {
+    margin-block-start: 0;
+  }
+
+  /* Nur für Screenreader sichtbar */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* Kontrastdesign (Windows, forced-colors) und erhöhter Kontrast */
+@layer utilities {
+  @media (forced-colors: active) {
+    /* Hintergrundfarben und Schatten entfallen, deshalb Rahmen und Systemfarben verwenden */
+    .btn,
+    .chip,
+    .menue-knopf,
+    .karte {
+      border: 2px solid ButtonText;
+    }
+
+    /* Gedrückter Filter: Hintergrundfarbe entfällt, also dicker Rahmen und Unterstreichung (nicht nur Farbe) */
+    .chip[aria-pressed="true"] {
+      border-width: 4px;
+      padding-inline: calc(var(--space-3) - 2px);
+      text-decoration: underline;
+    }
+
+    .nav a[aria-current="page"] {
+      text-decoration: underline;
+    }
+
+    :is(a, button, input, select, textarea, summary):focus-visible {
+      outline: 3px solid Highlight;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --color-border: var(--color-border-strong);
+    }
+  }
+}
+
+@layer utilities {
+  @media print {
+    nav,
+    .skip-link,
+    footer {
+      display: none;
+    }
+
+    body {
+      inline-size: auto;
+    }
+  }
+}
+
+/* Bewegung reduzieren: Notbremse für alles, auch für spätere Animationen */
+@layer utilities {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

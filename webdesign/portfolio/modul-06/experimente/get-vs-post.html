@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: GET und name-Attribut</title>
+</head>
+<body>
+  <!-- Aufgabe 06.1: Schicke das Formular ab und schau in die Adresszeile.
+       Welche Felder tauchen auf? Welches fehlt und warum? -->
+  <form action="get-vs-post.html" method="get">
+    <p><label for="mit">Feld mit name</label> <input id="mit" name="suche" type="text" value="Webdesign"></p>
+    <p><label for="ohne">Feld ohne name</label> <input id="ohne" type="text" value="geheim"></p>
+    <p><button type="submit">Absenden</button></p>
+  </form>
+</body>
+</html>

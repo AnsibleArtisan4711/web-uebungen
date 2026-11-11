@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: CSP-Test</title>
+  <link rel="stylesheet" href="experiment.css">
+  <!-- Muss vor allem anderen laufen, damit der Verstoß-Listener auch die späteren Blockaden sieht -->
+  <script src="csp-pruefung.js"></script>
+</head>
+<body>
+  <h1>CSP-Test</h1>
+  <p>Fünf Dinge, die eine strenge Richtlinie blockieren soll. Öffne die Seite ohne Zusatz, mit <code>?csp=enforce</code> und mit <code>?csp=report-only</code> (nur über <code>tools/server.js</code>).</p>
+  <table><thead><tr><th>Test</th><th>Ergebnis</th></tr></thead><tbody id="tabelle"></tbody></table>
+  <p id="anzahl" role="status">Noch nichts geprüft.</p>
+
+  <!-- html-validate-disable-next no-inline-style -- absichtlich: Testfall für style-src -->
+  <p id="stil" style="color: red">Dieser Absatz hat ein style-Attribut (rot).</p>
+  <img id="fremdbild" alt="" width="40" height="40" src="../img/avatar.png">
+  <img alt="" src="x" width="1" height="1" onerror="window.INLINE_HANDLER = true">
+
+  <script>window.INLINE_SKRIPT = true;</script>
+</body>
+</html>

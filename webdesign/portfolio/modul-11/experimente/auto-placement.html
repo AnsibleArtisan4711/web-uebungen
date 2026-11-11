@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Auto Placement und dense</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.5: dense füllt Lücken, kann aber die visuelle Reihenfolge verändern (WCAG 1.3.2). */
+    .galerie { display: grid; gap: 0.5rem; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 5rem; margin-block-end: 1.5rem; }
+    .dense { grid-auto-flow: dense; }
+    .gross { grid-column: span 2; grid-row: span 2; }
+  </style>
+</head>
+<body>
+  <h1>Ohne dense: Lücken</h1>
+  <div class="galerie"><div class="kasten">1</div><div class="kasten">2</div><div class="kasten">3</div><div class="kasten gross">4 groß</div><div class="kasten">5</div><div class="kasten">6</div><div class="kasten">7</div><div class="kasten">8</div></div>
+  <h1>Mit dense: Lücken gefüllt, Reihenfolge verändert</h1>
+  <div class="galerie dense"><div class="kasten">1</div><div class="kasten">2</div><div class="kasten">3</div><div class="kasten gross">4 groß</div><div class="kasten">5</div><div class="kasten">6</div><div class="kasten">7</div><div class="kasten">8</div></div>
+</body>
+</html>

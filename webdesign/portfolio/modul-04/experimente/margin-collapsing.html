@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Margin Collapsing</title>
+  <style>
+    /* Aufgabe 04.3: Wie groß ist der Abstand zwischen den Absätzen? */
+    p { margin: 0; background: #dbe7f5; }
+    .eins { margin-bottom: 40px; }
+    .zwei { margin-top: 25px; }
+
+    /* Teil 2: Eltern und erstes Kind */
+    .eltern { background: #eef3fa; }
+    .kind { margin-top: 30px; background: #c5d7ee; }
+    .flow { display: flow-root; }
+  </style>
+</head>
+<body>
+  <p class="eins">Absatz 1 (margin-bottom: 40px)</p>
+  <p class="zwei">Absatz 2 (margin-top: 25px)</p>
+
+  <h2>Eltern und Kind</h2>
+  <div class="eltern"><p class="kind">Kind ohne Schutz</p></div>
+  <hr>
+  <div class="eltern flow"><p class="kind">Kind in flow-root</p></div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* Design Tokens: Ebene 1 = Palette (primitiv), Ebene 2 = Bedeutung (semantisch) */
+:root {
+  color-scheme: light dark;
+
+  /* Primitive Tokens: reine Werte, keine Bedeutung */
+  --blue-50: #f5f8fc;
+  --blue-100: #eef3fa;
+  --blue-200: #c5d7ee;
+  --blue-300: #8fb4ee;
+  --blue-600: #0b4fb3;
+  --blue-700: #1a3c6e;
+  --gray-100: #eeeeee;
+  --gray-900: #1a1a1a;
+  --gray-950: #121212;
+  --red-300: #f2a0a0;
+  --red-800: #7a1f1f;
+  --white: #ffffff;
+
+  /* Abstände, Radius, Schrift */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+  --radius: 0.5rem;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, Consolas, "Courier New", monospace;
+
+  /* Ebenen */
+  --z-badge: 10;
+  --z-sticky: 20;
+  --z-skip: 30;      /* Skip-Link liegt über dem haftenden Kopf (WCAG 2.4.11) */
+
+  /* Semantische Tokens (hell). Komponenten verwenden nur diese. */
+  --color-bg: var(--white);
+  --color-text: var(--gray-900);
+  --color-heading: var(--blue-700);
+  --color-link: var(--blue-600);
+  --color-link-hover: var(--red-800);
+  --color-surface: var(--blue-50);
+  --color-surface-alt: var(--blue-100);
+  --color-border: var(--blue-200);
+  --color-border-strong: #5f7391;
+  --color-primary: var(--blue-700);
+  --color-on-primary: var(--white);
+  --color-focus: #1a73e8;
+  --color-error: #b00020;
+}
+
+/* Dunkles Theme folgt der Systemeinstellung ... */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: var(--gray-950);
+    --color-text: var(--gray-100);
+    --color-heading: var(--blue-300);
+    --color-link: var(--blue-300);
+    --color-link-hover: var(--red-300);
+    --color-surface: #1b2433;
+    --color-surface-alt: #222d40;
+    --color-border: #4a5d80;
+    --color-border-strong: #8da2c4;
+    --color-primary: var(--blue-300);
+    --color-on-primary: var(--gray-950);
+    --color-focus: var(--blue-300);
+    --color-error: #ff8a95;
+  }
+}
+
+/* ... und lässt sich per Attribut erzwingen (Umschalter folgt in Modul 12) */
+:root[data-theme="dark"] {
+  --color-bg: var(--gray-950);
+  --color-text: var(--gray-100);
+  --color-heading: var(--blue-300);
+  --color-link: var(--blue-300);
+  --color-link-hover: var(--red-300);
+  --color-surface: #1b2433;
+  --color-surface-alt: #222d40;
+  --color-border: #4a5d80;
+  --color-border-strong: #8da2c4;
+  --color-primary: var(--blue-300);
+  --color-on-primary: var(--gray-950);
+  --color-focus: var(--blue-300);
+  --color-error: #ff8a95;
+}

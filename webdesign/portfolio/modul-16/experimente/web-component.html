@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Web Component mein-badge</title>
+  <style>body { font-family: system-ui, sans-serif; padding: 1rem; } mein-badge:not(:defined) { display: none; }</style>
+</head>
+<body>
+  <h1>Web Component</h1>
+  <p>Ohne JavaScript steht hier der Fallback-Text: <mein-badge farbe="blau">Neu</mein-badge></p>
+  <p><mein-badge farbe="rot">Wichtig</mein-badge> <mein-badge>Standard</mein-badge></p>
+  <script>
+    "use strict";
+    class MeinBadge extends HTMLElement {
+      static get observedAttributes() { return ["farbe"]; }
+      constructor() {
+        super();
+        // Shadow DOM: Stile von außen wirken nicht hinein und umgekehrt.
+        this.attachShadow({ mode: "open" }).innerHTML =
+          '<style>span{display:inline-block;padding:.1em .6em;border-radius:1em;color:#fff;background:var(--bg,#555);font:600 .875rem system-ui}</style><span part="badge"><slot></slot></span>';
+      }
+      attributeChangedCallback() { this.#aktualisiere(); }
+      connectedCallback() { this.#aktualisiere(); }
+      #aktualisiere() {
+        const farben = { blau: "#1a3c6e", rot: "#b00020" };
+        this.style.setProperty("--bg", farben[this.getAttribute("farbe")] || "#555");
+      }
+    }
+    customElements.define("mein-badge", MeinBadge);
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Layout mit Tabelle (Gegenbeispiel) und mit Grid</title>
+  <style>
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+    .grid > div { padding: 1rem; background: #dde6f3; }
+  </style>
+</head>
+<body>
+  <h1>Drei Kästen nebeneinander</h1>
+
+  <h2>Falsch: Layout-Tabelle</h2>
+  <!-- Aufgabe 09.4: Hier gibt es keine Beziehung zwischen Zeilen und Spalten. Schmal bleibt die Tabelle dreispaltig,
+       und Screenreader kündigen eine Tabelle mit einer Zeile und drei Spalten an. -->
+  <table role="none">
+    <tbody><tr><td>Kasten 1</td><td>Kasten 2</td><td>Kasten 3</td></tr></tbody>
+  </table>
+
+  <h2>Richtig: CSS Grid</h2>
+  <div class="grid"><div>Kasten 1</div><div>Kasten 2</div><div>Kasten 3</div></div>
+</body>
+</html>

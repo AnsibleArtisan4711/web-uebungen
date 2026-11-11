@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Dialog und Fokus</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; line-height: 1.5; }
+    button { font: inherit; min-height: 2.75rem; padding-inline: 1rem; }
+    :focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    dialog { max-width: 28rem; }
+    dialog::backdrop { background: rgb(0 0 0 / 0.5); }
+  </style>
+</head>
+<body>
+  <h1>Natives Dialogfenster</h1>
+  <p>Der native <code>&lt;dialog&gt;</code> mit <code>showModal()</code> setzt den Fokus hinein, hält ihn im Dialog, schließt mit Escape und gibt den Fokus an den Auslöser zurück. Dafür ist kein ARIA und kein eigener Fokus-Code nötig.</p>
+  <button type="button" id="auf">Dialog öffnen</button>
+  <dialog id="dlg" aria-labelledby="dlg-titel">
+    <h2 id="dlg-titel">Hinweis</h2>
+    <p>Das ist ein Beispiel. Mit Escape oder dem Button schließt du das Fenster.</p>
+    <form method="dialog"><button type="submit">Schließen</button></form>
+  </dialog>
+  <script>
+    "use strict";
+    const dlg = document.getElementById("dlg");
+    document.getElementById("auf").addEventListener("click", () => dlg.showModal());
+  </script>
+</body>
+</html>

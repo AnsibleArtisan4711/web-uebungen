@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Render-Blocking: normales Stylesheet</title>
+  <!-- main.css kommt absichtlich 800 ms verzögert (Testserver: ?delay=800) -->
+  <link rel="stylesheet" href="../css/main.css?delay=800">
+</head>
+<body>
+  <header class="site-header"><span class="site-header__name">AnsibleArtisan4711</span></header>
+  <main id="inhalt">
+    <h1>Hallo, ich bin AnsibleArtisan4711</h1>
+    <p>Testseite für Render-Blocking. Der sichtbare Text steht sofort im HTML. Gemessen wird, wann der Browser ihn zum ersten Mal zeichnet (First Contentful Paint).</p>
+    <p id="ergebnis" role="status">Noch nicht gemessen.</p>
+  </main>
+  <script src="render-messung.js"></script>
+</body>
+</html>

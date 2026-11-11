@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Permissions-Policy</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>Permissions-Policy</h1>
+  <p>Der Server sendet <code>Permissions-Policy: camera=(), microphone=(), geolocation=(self)</code>. Die Seite fragt den Browser, welche Funktionen erlaubt sind (Chromium: <code>document.featurePolicy</code>).</p>
+  <table><thead><tr><th>Funktion</th><th>Erlaubt für diese Seite</th></tr></thead><tbody id="tabelle"></tbody></table>
+  <script src="permissions.js"></script>
+</body>
+</html>

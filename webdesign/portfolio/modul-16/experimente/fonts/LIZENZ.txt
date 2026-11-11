@@ -1,0 +1,3 @@
+dejavu-sans-latin.woff2 ist eine Teilmenge (Latin-Zeichen) der Schrift DejaVu Sans.
+DejaVu Fonts stehen unter einer freien Lizenz, die Weitergabe und Veränderung erlaubt.
+Lizenztext und Quelle: https://dejavu-fonts.github.io/License.html

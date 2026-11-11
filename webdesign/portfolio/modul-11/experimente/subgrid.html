@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Subgrid für Karten</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.6: Titel, Text und Button jeder Karte stehen über alle Karten hinweg auf gleicher Höhe. */
+    .karten { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-block-end: 2rem; }
+    .karte { background: #f5f8fc; border: 1px solid #c5d7ee; padding: 1rem; }
+    .karte h2 { margin: 0; font-size: 1.1rem; }
+    .karte p { margin: 0.5rem 0; }
+    .karte a { align-self: end; justify-self: start; }
+    .ohne .karte { display: grid; gap: 0; }
+    .mit .karte { display: grid; grid-row: span 3; grid-template-rows: subgrid; gap: 0; }
+  </style>
+</head>
+<body>
+  <h1>Ohne Subgrid: Titel verschieden hoch</h1>
+  <div class="karten ohne">
+    <article class="karte"><h2>Kurzer Titel</h2><p>Kurzer Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Ein deutlich längerer Titel, der in mehrere Zeilen umbricht</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Mittlerer Titel hier</h2><p>Ein längerer Text mit mehreren Wörtern, damit die Karte höher wird als die anderen beiden.</p><a href="#">Mehr</a></article>
+  </div>
+  <h1>Mit Subgrid: gleiche Linien in allen Karten</h1>
+  <div class="karten mit">
+    <article class="karte"><h2>Kurzer Titel</h2><p>Kurzer Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Ein deutlich längerer Titel, der in mehrere Zeilen umbricht</h2><p>Text.</p><a href="#">Mehr</a></article>
+    <article class="karte"><h2>Mittlerer Titel hier</h2><p>Ein längerer Text mit mehreren Wörtern, damit die Karte höher wird als die anderen beiden.</p><a href="#">Mehr</a></article>
+  </div>
+</body>
+</html>

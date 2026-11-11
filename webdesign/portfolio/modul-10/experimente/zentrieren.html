@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Zentrieren (zwei Varianten)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.3: Variante A mit Flexbox, Variante B mit Grid. Beide zentrieren im Viewport. */
+    body { padding: 0; }
+    .a, .b { min-height: 50svh; }
+    .a { display: flex; justify-content: center; align-items: center; background: #eef3fa; }
+    .b { display: grid; place-items: center; background: #f5f8fc; }
+  </style>
+</head>
+<body>
+  <div class="a"><div class="kasten">A: Flexbox</div></div>
+  <div class="b"><div class="kasten">B: Grid (place-items)</div></div>
+</body>
+</html>

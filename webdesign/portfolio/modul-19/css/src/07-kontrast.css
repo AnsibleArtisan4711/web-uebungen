@@ -1,0 +1,31 @@
+/* Kontrastdesign (Windows, forced-colors) und erhöhter Kontrast */
+@media (forced-colors: active) {
+  /* Hintergrundfarben und Schatten entfallen, deshalb Rahmen und Systemfarben verwenden */
+  .btn,
+  .chip,
+  .menue-knopf,
+  .karte {
+    border: 2px solid ButtonText;
+  }
+
+  /* Gedrückter Filter: Hintergrundfarbe entfällt, also dicker Rahmen und Unterstreichung (nicht nur Farbe) */
+  .chip[aria-pressed="true"] {
+    border-width: 4px;
+    padding-inline: calc(var(--space-3) - 2px);
+    text-decoration: underline;
+  }
+
+  .nav a[aria-current="page"] {
+    text-decoration: underline;
+  }
+
+  :is(a, button, input, select, textarea, summary):focus-visible {
+    outline: 3px solid Highlight;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-border: var(--color-border-strong);
+  }
+}

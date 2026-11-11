@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: langes Wort sprengt den Flex Container</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.4: min-width: auto verhindert das Schrumpfen unter die Wortbreite. */
+    .reihe { display: flex; gap: 1rem; width: 20rem; margin-block: 1rem; background: #eef3fa; padding: 0.5rem; outline: 2px dashed #b00020; }
+    .reihe > * { flex: 1; }
+    .fix > * { min-width: 0; overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+  <h1>Vorher: Überlauf</h1>
+  <div class="reihe">
+    <div class="kasten">Donaudampfschifffahrtsgesellschaftskapitän</div>
+    <div class="kasten">Zweites Item</div>
+  </div>
+  <h1>Nachher: min-width: 0 und overflow-wrap</h1>
+  <div class="reihe fix">
+    <div class="kasten">Donaudampfschifffahrtsgesellschaftskapitän</div>
+    <div class="kasten">Zweites Item</div>
+  </div>
+</body>
+</html>

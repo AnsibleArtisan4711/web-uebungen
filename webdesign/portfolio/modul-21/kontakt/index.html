@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U='; style-src 'self'; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Kontakt aufnehmen | AnsibleArtisan4711</title>
+  <meta name="description" content="Schreibe AnsibleArtisan4711 eine Nachricht per Formular. Das Formular ist ein Beispiel und versendet nichts. Mit Antworten auf häufige Fragen.">
+  <link rel="canonical" href="https://example.com/portfolio/kontakt/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kontakt aufnehmen | AnsibleArtisan4711">
+  <meta property="og:description" content="Schreibe AnsibleArtisan4711 eine Nachricht per Formular. Das Formular ist ein Beispiel und versendet nichts. Mit Antworten auf häufige Fragen.">
+  <meta property="og:url" content="https://example.com/portfolio/kontakt/">
+  <meta property="og:image" content="https://example.com/portfolio/img/og-bild.png">
+  <meta property="og:image:alt" content="Blaue Grafik mit dem Namen AnsibleArtisan4711 und dem Text Portfolio">
+  <meta property="og:locale" content="de_AT">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#1a3c6e">
+  <link rel="stylesheet" href="../css/main.css">
+  <script>document.documentElement.classList.add("js")</script>
+  <script src="../js/logik.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Start",
+      "item": "https://example.com/portfolio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Kontakt",
+      "item": "https://example.com/portfolio/kontakt/"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+  <header class="site-header">
+    <a class="site-header__name" href="../index.html">AnsibleArtisan4711</a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="../index.html">Startseite</a></li>
+        <li><a href="../lebenslauf/index.html">Lebenslauf</a></li>
+        <li><a href="../projekte/index.html">Projekte</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html" aria-current="page">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="inhalt" tabindex="-1">
+    <nav class="brotkrumen" aria-label="Brotkrumen">
+      <ol>
+        <li><a href="../index.html">Startseite</a></li>
+        <li aria-current="page">Kontakt</li>
+      </ol>
+    </nav>
+    <h1>Kontakt</h1>
+    <p class="lesetext">Schreib mir eine Nachricht. Felder ohne den Zusatz „optional“ sind Pflichtfelder. Das Formular ist ein Beispiel: Es sendet noch an keinen Server (siehe Modul 12 und 19).</p>
+
+    <form class="js-formular stack" action="danke/index.html" method="post">
+      <div class="feld">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
+      </div>
+
+      <div class="feld">
+        <label for="mail">E-Mail-Adresse</label>
+        <input id="mail" name="mail" type="email" autocomplete="email" maxlength="254" required aria-describedby="mail-hinweis">
+        <p id="mail-hinweis" class="feld__hinweis">Format: name@beispiel.at</p>
+      </div>
+
+      <div class="feld">
+        <label for="betreff">Betreff</label>
+        <select id="betreff" name="betreff" required>
+          <option value="">Bitte wählen</option>
+          <option value="frage">Allgemeine Frage</option>
+          <option value="projekt">Projektanfrage</option>
+          <option value="sonstiges">Sonstiges</option>
+        </select>
+      </div>
+
+      <div class="feld feld--falle" aria-hidden="true">
+        <label for="website">Dieses Feld bitte leer lassen</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <fieldset>
+        <legend>Ich schreibe als (optional)</legend>
+        <label class="auswahl"><input type="radio" name="rolle" value="recruiter"> Recruiter/in</label>
+        <label class="auswahl"><input type="radio" name="rolle" value="ausbildung"> Ausbilder/in</label>
+        <label class="auswahl"><input type="radio" name="rolle" value="sonstige" checked> Sonstige</label>
+      </fieldset>
+
+      <div class="feld">
+        <label for="nachricht">Nachricht</label>
+        <textarea id="nachricht" name="nachricht" rows="5" minlength="10" maxlength="1000" required aria-describedby="nachricht-hinweis"></textarea>
+        <p id="nachricht-hinweis" class="feld__hinweis">Mindestens 10, höchstens 1000 Zeichen.</p>
+      </div>
+
+      <div class="auswahl">
+        <input id="datenschutz" name="datenschutz" type="checkbox" value="ja" required>
+        <label for="datenschutz">Ich stimme zu, dass meine Angaben zur Beantwortung der Anfrage verarbeitet werden. Mehr dazu in der <a href="../datenschutz/index.html">Datenschutzerklärung</a>.</label>
+      </div>
+
+      <p><button class="btn" type="submit">Nachricht senden</button></p>
+    </form>
+
+    <address class="umbruch">Alternativ per E-Mail: <a href="mailto:kontakt@example.com">kontakt@example.com</a> (Platzhalteradresse).</address>
+
+    <section aria-labelledby="faq">
+      <h2 id="faq">Häufige Fragen</h2>
+      <details name="faq">
+        <summary>Wird das Formular wirklich verschickt?</summary>
+        <p>Nein. Das Formular ist ein Beispiel und führt nur auf eine Bestätigungsseite. Es wird nichts gespeichert oder versendet.</p>
+      </details>
+      <details name="faq">
+        <summary>Warum funktioniert das Formular auch ohne JavaScript?</summary>
+        <p>Die Regeln stehen im HTML (<code>required</code>, <code>type</code>, <code>minlength</code>). JavaScript verbessert nur die Meldungen.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 AnsibleArtisan4711</p>
+    <nav aria-label="Fußzeile">
+      <ul>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html">Kontakt</a></li>
+        <li><a href="../impressum/index.html">Impressum</a></li>
+        <li><a href="../datenschutz/index.html">Datenschutz</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>

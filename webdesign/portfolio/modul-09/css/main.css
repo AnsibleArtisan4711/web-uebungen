@@ -1,0 +1,603 @@
+/* Portfolio, Modul 07: Mobile First, Media und Container Queries, Logical Properties. */
+@layer reset, tokens, base, components, utilities;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+}
+
+/* Design Tokens: Ebene 1 = Palette (primitiv), Ebene 2 = Bedeutung (semantisch) */
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* Primitive Tokens: reine Werte, keine Bedeutung */
+    --blue-50: #f5f8fc;
+    --blue-100: #eef3fa;
+    --blue-200: #c5d7ee;
+    --blue-300: #8fb4ee;
+    --blue-600: #0b4fb3;
+    --blue-700: #1a3c6e;
+    --gray-100: #eeeeee;
+    --gray-900: #1a1a1a;
+    --gray-950: #121212;
+    --red-300: #f2a0a0;
+    --red-800: #7a1f1f;
+    --white: #ffffff;
+
+    /* Abstände, Radius, Schrift */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 1rem;
+    --space-4: 2rem;
+    --radius: 0.5rem;
+    --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, Consolas, "Courier New", monospace;
+
+    /* Ebenen */
+    --z-badge: 10;
+    --z-sticky: 20;
+
+    /* Semantische Tokens (hell). Komponenten verwenden nur diese. */
+    --color-bg: var(--white);
+    --color-text: var(--gray-900);
+    --color-heading: var(--blue-700);
+    --color-link: var(--blue-600);
+    --color-link-hover: var(--red-800);
+    --color-surface: var(--blue-50);
+    --color-surface-alt: var(--blue-100);
+    --color-border: var(--blue-200);
+    --color-border-strong: #5f7391;
+    --color-primary: var(--blue-700);
+    --color-on-primary: var(--white);
+    --color-focus: #1a73e8;
+    --color-error: #b00020;
+  }
+
+  /* Dunkles Theme folgt der Systemeinstellung ... */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg: var(--gray-950);
+      --color-text: var(--gray-100);
+      --color-heading: var(--blue-300);
+      --color-link: var(--blue-300);
+      --color-link-hover: var(--red-300);
+      --color-surface: #1b2433;
+      --color-surface-alt: #222d40;
+      --color-border: #4a5d80;
+      --color-border-strong: #8da2c4;
+      --color-primary: var(--blue-300);
+      --color-on-primary: var(--gray-950);
+      --color-focus: var(--blue-300);
+      --color-error: #ff8a95;
+    }
+  }
+
+  /* ... und lässt sich per Attribut erzwingen (Umschalter folgt in Modul 12) */
+  :root[data-theme="dark"] {
+    --color-bg: var(--gray-950);
+    --color-text: var(--gray-100);
+    --color-heading: var(--blue-300);
+    --color-link: var(--blue-300);
+    --color-link-hover: var(--red-300);
+    --color-surface: #1b2433;
+    --color-surface-alt: #222d40;
+    --color-border: #4a5d80;
+    --color-border-strong: #8da2c4;
+    --color-primary: var(--blue-300);
+    --color-on-primary: var(--gray-950);
+    --color-focus: var(--blue-300);
+    --color-error: #ff8a95;
+  }
+}
+
+@layer base {
+  :root {
+    font-family: var(--font-body);
+    line-height: 1.5;
+    scroll-padding-block-start: 6rem;   /* haftender Kopf darf den Fokus nicht verdecken */
+  }
+
+  body {
+    width: min(100% - 2rem, 64rem);
+    margin-inline: auto;
+    padding-block: var(--space-4);
+    font-size: 1rem;
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  /* Überschriften: enge Zeilenhöhe, ausgewogener Umbruch, fluide Größe */
+  :is(h1, h2, h3) {
+    color: var(--color-heading);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.375rem, 1.2rem + 0.8vw, 2rem);
+  }
+
+  /* Fließtext: Silbentrennung dank lang="de", keine einzelnen Wörter am Zeilenende */
+  p {
+    max-width: 65ch;
+    hyphens: auto;
+    text-wrap: pretty;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: var(--color-link);
+  }
+
+  a:hover {
+    color: var(--color-link-hover);
+  }
+
+  a:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  a[href^="http"]::after {
+    content: " \2197";
+  }
+
+  :where(ul, ol) {
+    padding-inline-start: 1.25rem;
+  }
+
+  ::selection {
+    background: var(--color-surface-alt);
+  }
+
+  figure {
+    margin-block: var(--space-3);
+    margin-inline: 0;
+  }
+
+  figcaption {
+    font-size: 0.875rem;
+  }
+
+  pre {
+    overflow-x: auto;
+    padding: var(--space-3);
+    border-radius: var(--radius);
+    background: var(--color-surface-alt);
+  }
+
+  :is(code, kbd, pre) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  kbd {
+    padding: 0.1em 0.4em;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.25rem;
+  }
+
+  blockquote {
+    margin-inline: 0;
+    padding-inline-start: var(--space-3);
+    border-inline-start: 4px solid var(--color-border-strong);
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    margin-inline-start: var(--space-3);
+  }
+
+  video,
+  audio {
+    max-inline-size: 100%;
+  }
+
+  video {
+    block-size: auto;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  footer {
+    margin-block-start: 3rem;
+    font-size: 0.875rem;
+  }
+}
+
+@layer components {
+  .site-header {
+    padding-block: var(--space-2);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-name {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;   /* Tippfläche 44 px, gemessen im Gerätetest */
+    font-weight: 700;
+    color: var(--color-heading);
+    text-decoration: none;
+  }
+
+  /* Navigation mit Flexbox (Details in Modul 10) */
+  .nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+  }
+
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+
+  .nav a[aria-current="page"] {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: -999px;
+  }
+
+  .skip-link:focus {
+    inset-inline-start: 1rem;
+    inset-block-start: 1rem;
+    background: var(--color-bg);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .karte {
+    position: relative;
+    isolation: isolate;
+    margin-block: 1.5rem;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .karte h2,
+  .karte h3 {
+    margin-block-start: var(--space-2);
+  }
+
+  .badge {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-end: var(--space-2);
+    z-index: var(--z-badge);
+    padding: 0.125rem var(--space-2);
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: 0.75rem;
+  }
+
+  .hinweis {
+    border-inline-start: 4px solid var(--color-primary);
+    padding-inline-start: var(--space-3);
+    margin-block: var(--space-4);
+  }
+
+  .kenntnisse > li:nth-child(odd) {
+    background: var(--color-surface-alt);
+  }
+
+  /* Button: eine Komponente mit Varianten und Zuständen */
+  .btn {
+    --btn-bg: var(--color-primary);
+    --btn-fg: var(--color-on-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;                /* große Klickfläche */
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--btn-bg);
+    border-radius: var(--radius);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: color-mix(in oklch, var(--btn-bg), var(--color-text) 15%);
+    border-color: color-mix(in oklch, var(--btn-bg), var(--color-text) 15%);
+    color: var(--btn-fg);
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn--secondary {
+    --btn-bg: transparent;
+    --btn-fg: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .btn--secondary:hover {
+    background: var(--color-surface-alt);
+    border-color: var(--color-primary);
+    color: var(--btn-fg);
+  }
+
+  .btn[href^="http"]::after {
+    content: none;
+  }
+
+  /* ---- Responsive Bausteine: Basis = Mobil, größere Ansichten ergänzen ---- */
+  .intro {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .intro figure {
+    margin: 0;
+  }
+
+  /* Automatisch umbrechendes Raster ohne Media Query */
+  .karten {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+
+  /* Jeder Slot ist ein Container: die Karte richtet sich nach IHRER Breite */
+  .karten-slot {
+    container-type: inline-size;
+    container-name: karte;
+  }
+
+  .karten-slot > .karte {
+    margin-block: 0;
+    block-size: 100%;
+  }
+
+  .karte--projekt {
+    display: grid;
+    gap: var(--space-3);
+    align-content: start;
+  }
+
+  .karte--projekt img {
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--radius);
+  }
+
+  @container karte (min-width: 30rem) {
+    .karte--projekt {
+      grid-template-columns: 12rem 1fr;
+      align-items: start;
+    }
+  }
+
+  @media (min-width: 40em) {
+    .site-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: var(--z-sticky);
+    }
+
+    .intro {
+      grid-template-columns: 1fr 14rem;
+      align-items: start;
+    }
+  }
+
+  /* Formulare */
+  .formular {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .feld {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .feld label,
+  legend {
+    font-weight: 600;
+  }
+
+  .feld-hinweis {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  :is(input:not([type="checkbox"], [type="radio"]), textarea, select) {
+    font: inherit;
+    min-height: 2.75rem;
+    padding: var(--space-2);
+    border: 2px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  :is(input, textarea, select):focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  /* Fehlerzustand erst nach Interaktion, nicht beim Laden; nicht nur Farbe: dicker Rahmen */
+  :is(input, textarea, select):user-invalid {
+    border-color: var(--color-error);
+    border-width: 4px;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+
+  .auswahl {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;      /* große Klickfläche */
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--color-primary);
+  }
+
+  .fehler {
+    margin: 0;
+    color: var(--color-error);
+    font-weight: 600;
+  }
+
+  /* Farbfelder für die Styleguide-Seite */
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .swatch {
+    display: block;
+    width: 6rem;
+    height: 3rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+
+  .swatch--bg { background: var(--color-bg); }
+  .swatch--surface { background: var(--color-surface); }
+  .swatch--primary { background: var(--color-primary); }
+  .swatch--link { background: var(--color-link); }
+  .swatch--text { background: var(--color-text); }
+  .swatch--border { background: var(--color-border); }
+
+  /* Tabellen (Modul 09): echte Daten, Scroll-Wrapper für schmale Viewports */
+  .tabelle-wrap {
+    overflow-x: auto;
+    margin-block: var(--space-4);
+  }
+
+  .tabelle-wrap:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+  }
+
+  caption {
+    text-align: start;
+    font-weight: 700;
+    padding-block: 0.5rem;
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  thead th {
+    background: var(--color-surface-alt);
+    border-block-end: 2px solid var(--color-border-strong);
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--color-surface);
+  }
+
+  :is(th, td).zahl {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media print {
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+  }
+}
+
+@layer utilities {
+  .lesetext {
+    max-width: 65ch;
+  }
+
+  .umbruch {
+    overflow-wrap: anywhere;
+  }
+
+  .text-klein {
+    font-size: 0.875rem;
+  }
+
+  .mt-0 {
+    margin-block-start: 0;
+  }
+}
+
+@layer utilities {
+  @media print {
+    nav,
+    .skip-link,
+    footer {
+      display: none;
+    }
+
+    body {
+      inline-size: auto;
+    }
+  }
+}

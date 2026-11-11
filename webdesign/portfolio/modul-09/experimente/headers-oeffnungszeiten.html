@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: headers statt scope</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <main>
+    <h1>Mehrstufiger Tabellenkopf</h1>
+    <!-- Aufgabe 09.2: Der Kopf hat zwei Ebenen (Vormittag/Nachmittag über Beginn und Ende).
+         scope kann diese Zuordnung nicht eindeutig ausdrücken, deshalb id und headers. -->
+    <section class="tabelle-wrap" aria-labelledby="t-zeiten" tabindex="0">
+      <table>
+        <caption id="t-zeiten">Öffnungszeiten (Beispiel)</caption>
+        <thead>
+          <tr>
+            <td rowspan="2"></td>
+            <th id="vm" colspan="2" scope="colgroup">Vormittag</th>
+            <th id="nm" colspan="2" scope="colgroup">Nachmittag</th>
+          </tr>
+          <tr>
+            <th id="vm-von" scope="col">von</th>
+            <th id="vm-bis" scope="col">bis</th>
+            <th id="nm-von" scope="col">von</th>
+            <th id="nm-bis" scope="col">bis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th id="mo" scope="row">Montag</th>
+            <td headers="mo vm vm-von">8 Uhr</td>
+            <td headers="mo vm vm-bis">12 Uhr</td>
+            <td headers="mo nm nm-von">14 Uhr</td>
+            <td headers="mo nm nm-bis">18 Uhr</td>
+          </tr>
+          <tr>
+            <th id="sa" scope="row">Samstag</th>
+            <td headers="sa vm vm-von">9 Uhr</td>
+            <td headers="sa vm vm-bis">12 Uhr</td>
+            <td headers="sa nm nm-von">geschlossen</td>
+            <td headers="sa nm nm-bis">geschlossen</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

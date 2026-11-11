@@ -1,0 +1,14 @@
+#!/bin/sh
+# Pre-commit-Hook (Übungen 19.7, 20.1 und 21.x). Aktivieren (einmal je Klon):   git config core.hooksPath webdesign/.githooks
+# Prüft vor jedem Commit Lint, HTML-Prüfung und die Aktualität von css/main.css im neuesten Portfolio-Stand.
+# Grenze: Geprüft wird der ganze Arbeitsordner, nicht nur die Dateien dieses Commits (dafür gibt es lint-staged).
+# Überspringen im Notfall:   git commit --no-verify
+cd "$(git rev-parse --show-toplevel)/webdesign/portfolio/modul-21" || exit 0
+if [ ! -d node_modules ]; then
+  echo "pre-commit: node_modules fehlt (npm ci). Prüfung übersprungen."
+  exit 0
+fi
+npm run -s lint && npm run -s validate:html && npm run -s css:pruefen || {
+  echo "pre-commit: Prüfung fehlgeschlagen. Commit abgebrochen."
+  exit 1
+}

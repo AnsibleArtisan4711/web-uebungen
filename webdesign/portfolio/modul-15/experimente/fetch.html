@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: fetch und Fehlerbehandlung</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; }
+    [role="status"] { padding: .5rem; border: 1px solid #1a3c6e; }
+    .fehler { border-color: #b00020; color: #b00020; }
+  </style>
+</head>
+<body>
+  <h1>Beiträge laden</h1>
+  <p>Mit einem lokalen Server (Übung 12.5) erscheinen die Beiträge. Unter <code>file://</code> sollte der Fehlerzustand erscheinen.</p>
+  <p><button type="button" id="laden">Beiträge laden</button> <button type="button" id="kaputt">Falsche Adresse laden</button></p>
+  <div role="status" id="status">Noch nichts geladen.</div>
+  <ul id="liste"></ul>
+  <script>
+    "use strict";
+    const status = document.getElementById("status");
+    const liste = document.getElementById("liste");
+
+    async function ladeBeitraege(url) {
+      status.classList.remove("fehler");
+      status.textContent = "Lade …";
+      liste.replaceChildren();
+      try {
+        const antwort = await fetch(url);
+        // fetch wirft bei HTTP 404 NICHT. Deshalb ok prüfen.
+        if (!antwort.ok) throw new Error("Server antwortet mit Status " + antwort.status);
+        const daten = await antwort.json();
+        for (const b of daten) {
+          const li = document.createElement("li");
+          li.textContent = b.titel + " (" + b.datum + "): " + b.kurz;   // textContent statt innerHTML
+          liste.append(li);
+        }
+        status.textContent = daten.length + " Beiträge geladen.";
+      } catch (fehler) {
+        status.classList.add("fehler");
+        status.textContent = "Beiträge konnten nicht geladen werden (" + fehler.message + ").";
+      }
+    }
+    document.getElementById("laden").addEventListener("click", () => ladeBeitraege("../data/beitraege.json"));
+    document.getElementById("kaputt").addEventListener("click", () => ladeBeitraege("../data/gibt-es-nicht.json"));
+  </script>
+</body>
+</html>

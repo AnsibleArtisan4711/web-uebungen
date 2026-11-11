@@ -1,0 +1,45 @@
+# Hinweis: Dieser Workflow lag im Einzel-Repo webdesign-uebungen und liegt jetzt im Wurzelordner des Themen-Repos (GitHub liest Workflows nur dort).
+# Alle Pfade zeigen auf den Kursordner webdesign/. Er läuft nur, wenn sich dort etwas ändert.
+# Continuous Integration für das Portfolio (Übungen 19.5, 20.1 und 21.2).
+# Läuft bei jedem Push und jedem Pull Request. Geprüft wird der jeweils neueste Stand in webdesign/portfolio/modul-21.
+# Nicht enthalten: npm run validate:w3c (braucht Java) und npm run e2e (braucht Browser und eine Baseline der eigenen Plattform).
+# Hinweis: Die Versionsnummern der Actions (@v4) stammen aus dem Lehrplan und sind nicht gegen die aktuellen Veröffentlichungen geprüft.
+# Vor dem Einsatz auf der Marketplace-Seite der jeweiligen Action nachsehen und, wenn möglich, auf einen Commit-Hash festlegen.
+name: CI Webdesign
+
+on:
+  push:
+    branches: [main]
+    paths: ['webdesign/**']
+  pull_request:
+    paths: ['webdesign/**']
+
+permissions:
+  contents: read
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: webdesign/portfolio/modul-21
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: webdesign/portfolio/modul-21/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:pruefen
+      - run: npm run validate:html
+      - run: npm run namen
+      - run: npm run doku
+      - run: npm run redirects
+      - run: npm run css:pruefen
+      - run: npm test
+      - run: npm run security
+      - run: npm run build
+      - run: npm run links -- dist
+      - run: npm run budget -- dist

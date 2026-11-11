@@ -1,0 +1,12 @@
+{
+  "satz": 90,
+  "pm": 0.15,
+  "puffer": 0,
+  "pakete": [
+    { "name": "Konzeption / Informationsarchitektur", "stunden": 16 },
+    { "name": "Design", "stunden": 32 },
+    { "name": "Umsetzung", "stunden": 60 },
+    { "name": "CMS und Inhalte", "stunden": 24 },
+    { "name": "QS (Browser, Barrierefreiheit, Leistung)", "stunden": 16 }
+  ]
+}

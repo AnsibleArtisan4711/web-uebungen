@@ -1,0 +1,17 @@
+{
+  "satz": 90,
+  "pm": 0.15,
+  "puffer": 0.15,
+  "pakete": [
+    { "name": "Konzeption", "o": 12, "w": 16, "p": 28 },
+    { "name": "Design", "o": 24, "w": 32, "p": 48 },
+    { "name": "Umsetzung", "o": 44, "w": 60, "p": 96 },
+    { "name": "CMS und Inhalte", "o": 16, "w": 24, "p": 40 },
+    { "name": "Qualitätssicherung", "o": 12, "w": 16, "p": 24 }
+  ],
+  "betrieb": [
+    { "name": "Hosting (Platzhalter)", "proJahr": 120 },
+    { "name": "Domain (Platzhalter)", "proJahr": 15 },
+    { "name": "Wartung 4 h pro Quartal", "proJahr": 1440 }
+  ]
+}

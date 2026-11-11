@@ -1,0 +1,6 @@
+{
+  "satz": 85,
+  "pm": 0.15,
+  "puffer": 0.1,
+  "pakete": [{ "name": "Gesamtprojekt", "stunden": 120 }]
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Bildformate und Bildgrößen</title>
+  <style>body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 50rem; } img { max-width: 100%; height: auto; display: block; }</style>
+</head>
+<body>
+  <h1>Bildformate</h1>
+  <p>Das Testbild ist künstlich erzeugt (Farbverlauf mit Körnung). Reale Fotos komprimieren anders, die Reihenfolge der Formate ist aber meist gleich.</p>
+  <picture>
+    <source type="image/avif" srcset="bilder/hero-800.avif 800w, bilder/hero-1600.avif 1600w" sizes="(min-width: 50em) 50rem, 100vw">
+    <source type="image/webp" srcset="bilder/hero-800.webp 800w, bilder/hero-1600.webp 1600w" sizes="(min-width: 50em) 50rem, 100vw">
+    <!-- LCP-Kandidat: nicht lazy, hohe Priorität. width/height reservieren den Platz. -->
+    <img src="bilder/hero-1600.jpg"
+         srcset="bilder/hero-800.jpg 800w, bilder/hero-1600.jpg 1600w"
+         sizes="(min-width: 50em) 50rem, 100vw"
+         width="1600" height="800" fetchpriority="high"
+         alt="Abstrakter Farbverlauf mit feiner Körnung (Testbild)">
+  </picture>
+</body>
+</html>

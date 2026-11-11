@@ -1,0 +1,26 @@
+# Abhängigkeiten und Build-Ergebnisse gehören nicht ins Repository
+node_modules/
+dist/
+
+# Ergebnisse der Browser-Tests; die Baseline-Screenshots hängen vom Betriebssystem ab (Übung 20.4)
+test-results/
+playwright-report/
+**/e2e/__baseline__/
+
+# Sicherungsarchive (Übung 21.6): können personenbezogene Daten enthalten
+backups/
+
+# Lokale Konfiguration und Geheimnisse (nie committen)
+portfolio/**/beispiele/kontakt-php/config.php
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Betriebssystem und Editoren
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

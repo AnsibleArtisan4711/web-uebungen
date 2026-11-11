@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Achsen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 10.2: Bei flex-direction: column vertauschen sich die Wirkungsrichtungen. */
+    .box { display: flex; gap: 0.5rem; height: 12rem; margin-block: 1rem; background: #eef3fa; padding: 0.5rem; }
+    .row { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+    .col { flex-direction: column; justify-content: space-between; align-items: flex-end; }
+  </style>
+</head>
+<body>
+  <h1>row: justify = waagrecht, align = senkrecht</h1>
+  <div class="box row"><div class="kasten">1</div><div class="kasten">2</div><div class="kasten">3</div></div>
+  <h1>column: justify = senkrecht, align = waagrecht</h1>
+  <div class="box col"><div class="kasten">1</div><div class="kasten">2</div><div class="kasten">3</div></div>
+</body>
+</html>

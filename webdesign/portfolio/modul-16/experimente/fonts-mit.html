@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Webfont mit size-adjust</title>
+  <style>
+    /* Die Webschrift (nur Latin, WOFF2). ?delay=1500 verzögert sie nur beim Test mit tools/server.js. */
+    @font-face {
+      font-family: "Beispielschrift";
+      src: url("fonts/dejavu-sans-latin.woff2?delay=1500") format("woff2");
+      font-display: swap;            /* Text sofort mit Fallback anzeigen, dann tauschen */
+    }
+    /* Fallback mit angepassten Metriken: gleiche Breite wie die Webschrift, deshalb kaum Verschiebung beim Tausch.
+       112 % wurde gemessen (Breite der Webschrift geteilt durch Breite von Arial bei gleichem Text). */
+    @font-face {
+      font-family: "Beispielschrift Fallback";
+      src: local("Arial"), local("Liberation Sans");
+      size-adjust: 112%;
+    }
+    body { margin: 1rem; max-width: 30rem; line-height: 1.5; font-family: "Beispielschrift", "Beispielschrift Fallback", sans-serif; }
+  </style>
+</head>
+<body>
+  <h1>Webfont mit size-adjust</h1>
+  <p>Der schnelle braune Fuchs springt über den faulen Hund. Dieser Absatz besteht aus mehreren Sätzen, damit sich beim Tausch der Schrift sichtbar der Zeilenumbruch ändert. Größe, Äpfel, Öl, Übung.</p>
+  <p>Dieser Absatz steht darunter und verschiebt sich, wenn der obere höher oder niedriger wird.</p>
+</body>
+</html>

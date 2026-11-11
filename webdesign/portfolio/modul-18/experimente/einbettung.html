@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Einbettung mit Einwilligung</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>Einbettung mit Einwilligung</h1>
+  <p>Zwei-Klick-Lösung: Der Inhalt eines anderen Ursprungs wird erst nach Klick geladen. Davor geht keine Anfrage dorthin.</p>
+  <div id="platzhalter">
+    <p id="meldung" role="status">Der Inhalt kommt von <code>127.0.0.1:8181</code> (anderer Ursprung). Er wird erst nach deiner Einwilligung geladen.</p>
+    <button type="button" id="laden">Inhalt laden</button>
+    <button type="button" id="widerruf" hidden>Einwilligung widerrufen</button>
+  </div>
+  <div id="ziel"></div>
+  <script src="einbettung.js"></script>
+</body>
+</html>

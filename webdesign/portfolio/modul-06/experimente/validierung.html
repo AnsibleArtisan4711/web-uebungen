@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Constraint Validation</title>
+  <style>
+    input:user-invalid { border: 3px solid #b00020; }
+    input { margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+  <!-- Aufgabe 06.5: Teste die Felder. Welche Eingaben sind gültig? -->
+  <form action="validierung.html" method="get">
+    <p><label for="plz">Postleitzahl</label><br>
+       <input id="plz" name="plz" type="text" inputmode="numeric" pattern="[0-9]{4}" required
+              title="Vierstellige Postleitzahl, z. B. 1010" autocomplete="postal-code"></p>
+    <p><label for="alter">Alter (18 bis 99)</label><br>
+       <input id="alter" name="alter" type="number" min="18" max="99" step="1"></p>
+    <p><label for="web">Webseite</label><br>
+       <input id="web" name="web" type="url"></p>
+    <p><button type="submit">Prüfen</button></p>
+  </form>
+</body>
+</html>

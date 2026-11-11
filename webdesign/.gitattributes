@@ -1,0 +1,9 @@
+# Zeilenenden im Repository immer LF, unabhängig vom Betriebssystem (wichtig für Hashes und Diffs unter Windows)
+* text=auto eol=lf
+*.png binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.mp3 binary
+*.mp4 binary
+*.webm binary

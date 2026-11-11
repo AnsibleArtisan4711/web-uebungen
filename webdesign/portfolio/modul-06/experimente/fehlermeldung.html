@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Fehlermeldung am Feld</title>
+  <style>
+    .fehler { color: #b00020; font-weight: 600; margin: 0.25rem 0 0; }
+    input[aria-invalid="true"] { border: 3px solid #b00020; }
+  </style>
+</head>
+<body>
+  <!-- Aufgabe 06.6: So sieht ein Fehler aus, wenn er bereits aufgetreten ist.
+       Teste mit einem Screenreader oder in den DevTools (Accessibility): Was wird beim Feld vorgelesen? -->
+  <form novalidate>
+    <label for="mail">E-Mail-Adresse</label><br>
+    <input id="mail" name="mail" type="email" value="name@" aria-invalid="true" aria-describedby="mail-fehler" required>
+    <p id="mail-fehler" class="fehler">Fehler: Bitte gib eine gültige E-Mail-Adresse ein, z. B. name@beispiel.at.</p>
+    <button type="submit">Absenden</button>
+  </form>
+</body>
+</html>

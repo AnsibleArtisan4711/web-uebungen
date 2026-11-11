@@ -1,0 +1,40 @@
+/* ---- JavaScript-Verbesserungen (Modul 12) ---- */
+
+/* Menü-Knopf: wird von main.js eingefügt. Nur mit JavaScript ist das Menü auf schmalen Bildschirmen eingeklappt. */
+.menue-knopf {
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-3);
+  font: inherit;
+  color: var(--color-heading);
+  background: transparent;
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.menue-knopf:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.js .nav {
+  flex-basis: 100%;
+}
+
+.js .nav:not(.nav--offen) {
+  display: none;
+}
+
+@media (min-width: 40em) {
+  .js .nav {
+    flex-basis: auto;
+  }
+
+  .js .nav:not(.nav--offen) {
+    display: block;
+  }
+
+  .menue-knopf {
+    display: none;
+  }
+}

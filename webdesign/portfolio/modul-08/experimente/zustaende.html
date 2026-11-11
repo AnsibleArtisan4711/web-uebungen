@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Zustände eines Formularfelds</title>
+  <style>
+    /* Aufgabe 08.5: Jeder Zustand ist erkennbar, auch ohne Farbe (Text, Symbol, Rahmenstärke). */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 40rem; }
+    .feld { margin-block: 1.25rem; }
+    label { display: block; font-weight: 600; margin-block-end: 0.25rem; }
+    input { width: 100%; padding: 0.625rem; font: inherit; border: 2px solid #595959; border-radius: 4px; background: #fff; color: #1a1a1a; }
+    input::placeholder { color: #595959; }
+    input:hover { border-color: #1a3c6e; }
+    input:focus-visible { outline: 3px solid #1a3c6e; outline-offset: 2px; }
+    input:disabled { background: #eee; color: #595959; border-style: dashed; cursor: not-allowed; }
+    input[readonly] { background: #f4f4f4; border-style: dotted; }
+    .fehler input { border-color: #b00020; border-width: 3px; }
+    .fehler .meldung::before { content: "Fehler: "; font-weight: 700; }
+    .fehler .meldung { color: #b00020; }
+    .ok input { border-color: #1b6e2f; }
+    .ok .meldung::before { content: "✓ "; font-weight: 700; }
+    .ok .meldung { color: #1b6e2f; }
+    .meldung { margin: 0.25rem 0 0; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Zustände eines Formularfelds</h1>
+
+  <div class="feld"><label for="z1">1 Normal / Leer (mit Platzhalter)</label>
+    <input type="text" id="z1" placeholder="name@beispiel.at"></div>
+  <div class="feld"><label for="z2">2 Hover (Maus darüber halten)</label>
+    <input type="text" id="z2" placeholder="Rahmen wird dunkelblau"></div>
+  <div class="feld"><label for="z3">3 Fokus (Tab-Taste drücken)</label>
+    <input type="text" id="z3" placeholder="Fokusring sichtbar"></div>
+  <div class="feld"><label for="z4">4 Ausgefüllt</label>
+    <input type="text" id="z4" value="kontakt@example.com"></div>
+  <div class="feld"><label for="z5">5 Deaktiviert</label>
+    <input type="text" id="z5" value="nicht änderbar" disabled></div>
+  <div class="feld"><label for="z6">6 Schreibgeschützt</label>
+    <input type="text" id="z6" value="nur lesen" readonly></div>
+  <div class="feld fehler"><label for="z7">7 Fehler</label>
+    <input type="text" id="z7" value="abc" aria-invalid="true" aria-describedby="z7m">
+    <p class="meldung" id="z7m">Bitte gib eine gültige E-Mail-Adresse ein, z. B. name@beispiel.at.</p></div>
+  <div class="feld ok"><label for="z8">8 Erfolg</label>
+    <input type="text" id="z8" value="kontakt@example.com" aria-describedby="z8m">
+    <p class="meldung" id="z8m">Adresse sieht gut aus.</p></div>
+</body>
+</html>

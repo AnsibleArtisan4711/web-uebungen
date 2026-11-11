@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-qOhFsq0QMV2REqNwk5hGH5bZE9SkX6gt6yeyKdYPv+U='; style-src 'self'; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Styleguide: Farben und Komponenten | AnsibleArtisan4711</title>
+  <meta name="description" content="Styleguide des Portfolios mit Farben, Typografie und Komponenten. Interne Referenzseite für die Entwicklung, nicht für Suchmaschinen gedacht.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://example.com/portfolio/styleguide/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Styleguide: Farben und Komponenten | AnsibleArtisan4711">
+  <meta property="og:description" content="Styleguide des Portfolios mit Farben, Typografie und Komponenten. Interne Referenzseite für die Entwicklung, nicht für Suchmaschinen gedacht.">
+  <meta property="og:url" content="https://example.com/portfolio/styleguide/">
+  <meta property="og:image" content="https://example.com/portfolio/img/og-bild.png">
+  <meta property="og:image:alt" content="Blaue Grafik mit dem Namen AnsibleArtisan4711 und dem Text Portfolio">
+  <meta property="og:locale" content="de_AT">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../favicon.ico" sizes="32x32">
+  <link rel="icon" href="../icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#1a3c6e">
+  <link rel="stylesheet" href="../css/main.css">
+  <script>document.documentElement.classList.add("js")</script>
+  <script src="../js/logik.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Start",
+      "item": "https://example.com/portfolio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Styleguide",
+      "item": "https://example.com/portfolio/styleguide/"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+  <header class="site-header">
+    <a class="site-header__name" href="../index.html">AnsibleArtisan4711</a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="../index.html">Startseite</a></li>
+        <li><a href="../lebenslauf/index.html">Lebenslauf</a></li>
+        <li><a href="../projekte/index.html">Projekte</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="inhalt" tabindex="-1">
+    <nav class="brotkrumen" aria-label="Brotkrumen">
+      <ol>
+        <li><a href="../index.html">Startseite</a></li>
+        <li aria-current="page">Styleguide</li>
+      </ol>
+    </nav>
+    <h1>Styleguide</h1>
+    <p class="lesetext">Diese Seite zeigt die Bausteine des Portfolios. Sie wächst mit jedem Modul.</p>
+
+    <section aria-labelledby="farben">
+      <h2 id="farben">Farben</h2>
+      <ul class="swatches">
+        <li><span class="swatch swatch--bg"></span>Hintergrund</li>
+        <li><span class="swatch swatch--surface"></span>Fläche</li>
+        <li><span class="swatch swatch--primary"></span>Primär</li>
+        <li><span class="swatch swatch--link"></span>Link</li>
+        <li><span class="swatch swatch--text"></span>Text</li>
+        <li><span class="swatch swatch--border"></span>Rahmen</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="typografie">
+      <h2 id="typografie">Typografie</h2>
+      <h3>Überschrift dritter Ordnung</h3>
+      <p class="lesetext">Fließtext mit einer Zeilenhöhe von 1,5 und einer Zeilenlänge von höchstens 65 Zeichen. Ein <a href="#typografie">Link im Text</a> und ein <a href="https://example.com/">externer Link</a>.</p>
+    </section>
+
+    <section aria-labelledby="buttons">
+      <h2 id="buttons">Buttons</h2>
+      <p>
+        <button class="btn" type="button">Primär</button>
+        <button class="btn btn--secondary" type="button">Sekundär</button>
+        <button class="btn" type="button" disabled>Deaktiviert</button>
+      </p>
+    </section>
+
+    <section aria-labelledby="karten">
+      <h2 id="karten">Karte</h2>
+      <article class="karte">
+        <span class="badge">Neu</span>
+        <h3>Kartentitel</h3>
+        <p>Kurzer Text in einer Karte.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="bem">
+      <h2 id="bem">Benennung (BEM)</h2>
+      <section class="tabelle-wrap" aria-labelledby="t-bem" tabindex="0">
+        <table>
+          <caption id="t-bem">Namensbausteine</caption>
+          <thead><tr><th scope="col">Teil</th><th scope="col">Schreibweise</th><th scope="col">Beispiel im Portfolio</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Block</th><td><code>block</code></td><td><code>karte</code>, <code>btn</code>, <code>site-header</code></td></tr>
+            <tr><th scope="row">Element</th><td><code>block__element</code></td><td><code>karte__text</code>, <code>site-header__name</code></td></tr>
+            <tr><th scope="row">Modifier</th><td><code>block--modifier</code></td><td><code>btn--secondary</code>, <code>karte--projekt</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <p><strong>Nicht so:</strong> <code>karte__kopf__titel</code> (Elemente nicht verschachteln). Schreibe stattdessen <code>karte__titel</code>.</p>
+    </section>
+
+    <section aria-labelledby="layout-muster">
+      <h2 id="layout-muster">Layout-Muster (Objects)</h2>
+      <p>Muster ohne Gestaltung: Sie legen nur Abstand und Anordnung fest.</p>
+
+      <h3>Stack</h3>
+      <div class="stack">
+        <div>Erster Block</div>
+        <div>Zweiter Block, Abstand 1 rem</div>
+      </div>
+      <pre><code>&lt;div class="stack"&gt; … &lt;/div&gt;
+&lt;div class="stack" style="--stack-gap: 2rem"&gt; … &lt;/div&gt;</code></pre>
+
+      <h3>Cluster</h3>
+      <div class="cluster">
+        <a class="btn" href="#layout-muster">Eins</a>
+        <a class="btn btn--secondary" href="#layout-muster">Zwei</a>
+        <a class="btn btn--secondary" href="#layout-muster">Drei</a>
+      </div>
+      <pre><code>&lt;div class="cluster"&gt; … &lt;/div&gt;</code></pre>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 AnsibleArtisan4711</p>
+    <nav aria-label="Fußzeile">
+      <ul>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html">Kontakt</a></li>
+        <li><a href="../impressum/index.html">Impressum</a></li>
+        <li><a href="../datenschutz/index.html">Datenschutz</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>

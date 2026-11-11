@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: ES-Module und defer</title>
+  <style>body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; } output { display: block; padding: .5rem; border: 1px solid #1a3c6e; }</style>
+</head>
+<body>
+  <h1>ES-Module</h1>
+  <p>Dieses Experiment braucht einen lokalen Server (siehe Übung 12.1). Unter <code>file://</code> blockiert der Browser das Laden von Modulen (CORS).</p>
+  <output id="ausgabe">Das Modul wurde nicht geladen.</output>
+  <!-- type="module" wirkt wie defer: Das Skript läuft nach dem Parsen. -->
+  <script type="module">
+    import { gruss } from "./js/hilfe.mjs";
+    document.getElementById("ausgabe").textContent = gruss("AnsibleArtisan4711");
+  </script>
+</body>
+</html>

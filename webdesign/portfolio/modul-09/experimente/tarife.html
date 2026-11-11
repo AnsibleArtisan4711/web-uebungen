@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Tarif-Tabelle</title>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <main>
+    <h1>Tarife</h1>
+    <section class="tabelle-wrap" aria-labelledby="t-tarife" tabindex="0">
+      <table>
+        <caption id="t-tarife">Tarife im Vergleich (Beispielwerte)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Merkmal</th>
+            <th scope="col">Basic</th>
+            <th scope="col">Pro</th>
+            <th scope="col">Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Preis pro Monat</th><td class="zahl">5 €</td><td class="zahl">12 €</td><td class="zahl">25 €</td></tr>
+          <tr><th scope="row">Speicher</th><td class="zahl">10 GB</td><td class="zahl">100 GB</td><td class="zahl">1.000 GB</td></tr>
+          <tr><th scope="row">Support</th><td>E-Mail</td><td>E-Mail, Chat</td><td>Telefon, Chat</td></tr>
+          <tr><th scope="row">Eigene Domain</th><td>nein</td><td>ja</td><td>ja</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4">Alle Preise sind Beispielwerte ohne Gewähr.</td></tr>
+        </tfoot>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

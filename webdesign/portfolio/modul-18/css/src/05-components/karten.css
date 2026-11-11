@@ -1,0 +1,68 @@
+/* Automatisch umbrechendes Raster ohne Media Query */
+.karten {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+/* Jeder Slot ist ein Container: die Karte richtet sich nach IHRER Breite */
+.karten__eintrag {
+  container-type: inline-size;
+  container-name: karte;
+}
+
+.karten__eintrag > .karte {
+  margin-block: 0;
+  block-size: 100%;
+}
+
+.karte--projekt {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-3);
+  transition: transform 0.2s ease-out;
+}
+
+/* Textblock der Karte: Spalte, Button wird mit margin auto nach unten geschoben */
+.karte__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.karte__text > * {
+  margin: 0;
+}
+
+.karte__aktion {
+  margin-block-start: auto;
+  align-self: start;
+}
+
+.karte--projekt img {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius);
+}
+
+@container karte (min-width: 30rem) {
+  .karte--projekt {
+    grid-template-columns: 12rem 1fr;
+    grid-template-rows: auto;
+    align-items: stretch;
+  }
+}
+
+@media (hover: hover) {
+  .karte--projekt:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.karte--projekt:focus-within {
+  transform: translateY(-4px);
+}

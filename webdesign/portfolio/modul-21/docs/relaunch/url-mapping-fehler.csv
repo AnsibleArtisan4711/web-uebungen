@@ -1,0 +1,12 @@
+# Absichtlich fehlerhaft, zum Üben der Prüfung (Übung 21.2)
+/index.php;/;301
+/index.php?id=2;/lebenslauf/;301
+/kontakt.html;/kontakt/danke2/;301
+/ueber-mich.html;/lebenslauf-neu/;301
+/lebenslauf-neu/;/lebenslauf/;301
+/schleife-a/;/schleife-b/;301
+/schleife-b/;/schleife-a/;301
+/impressum.html;/impressum.html;301
+/downloads/lebenslauf.pdf;/projekte/;410
+/kontakt.html;/kontakt/;301
+/blog/2019/erster-beitrag.html;/blog/erster-beitrag/;999

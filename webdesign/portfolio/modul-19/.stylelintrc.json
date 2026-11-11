@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-max-id": 0,
+    "selector-max-specificity": "0,3,1",
+    "selector-max-compound-selectors": 4,
+    "declaration-no-important": true,
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z][a-z0-9]*(-[a-z0-9]+)*)?(--[a-z][a-z0-9]*(-[a-z0-9]+)*)?$",
+      {
+        "message": "Klassennamen im BEM-Muster schreiben: block, block__element, block--modifier"
+      }
+    ],
+    "no-duplicate-selectors": true,
+    "block-no-empty": true,
+    "media-feature-range-notation": null,
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": [
+          "Consolas"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "css/src/01-reset.css",
+        "css/src/09-reduzierte-bewegung.css"
+      ],
+      "rules": {
+        "declaration-no-important": null
+      }
+    }
+  ]
+}

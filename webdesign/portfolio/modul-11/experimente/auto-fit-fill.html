@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: auto-fit oder auto-fill</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.2 und 11.3: Mindestens 14rem pro Spalte. Mit nur zwei Items zeigt sich der Unterschied. */
+    .fit, .fill { display: grid; gap: 1rem; margin-block-end: 1.5rem; }
+    .fit  { grid-template-columns: repeat(auto-fit,  minmax(min(100%, 14rem), 1fr)); }
+    .fill { grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+  </style>
+</head>
+<body>
+  <h1>auto-fit: leere Spalten kollabieren</h1>
+  <div class="fit"><div class="kasten">1</div><div class="kasten">2</div></div>
+  <h1>auto-fill: leere Spalten bleiben</h1>
+  <div class="fill"><div class="kasten">1</div><div class="kasten">2</div></div>
+</body>
+</html>

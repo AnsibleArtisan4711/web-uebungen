@@ -1,0 +1,56 @@
+diff --git a/css/src/05-components/hinweis.css b/css/src/05-components/hinweis.css
+index 5485687..5b7eef0 100644
+--- a/css/src/05-components/hinweis.css
++++ b/css/src/05-components/hinweis.css
+@@ -3,3 +3,18 @@
+   padding-inline-start: var(--space-3);
+   margin-block: var(--space-4);
+ }
++
++#hinweisbox .titel {
++  color: #C0392B !important;
++  margin-top: 13px;
++}
++
++a:focus {
++  outline: none;
++}
++
++@media (max-width: 800px) {
++  #hinweisbox {
++    padding: 7px;
++  }
++}
+diff --git a/index.html b/index.html
+index 8f17580..74356ba 100644
+--- a/index.html
++++ b/index.html
+@@ -54,6 +54,12 @@
+   </header>
+ 
+   <main id="inhalt" tabindex="-1">
++    <div id="hinweisbox" class="Hinweis Box" style="margin-bottom:20px">
++      <p class="titel">Neu im Portfolio</p>
++      <img src="img/avatar.png" width="64" height="64">
++      <a href="#" onclick="alert('Hallo')">Mehr</a>
++    </div>
++
+     <div class="intro">
+       <div>
+         <h1>Willkommen auf meinem Portfolio</h1>
+diff --git a/js/main.js b/js/main.js
+index 8eff984..0f7612b 100644
+--- a/js/main.js
++++ b/js/main.js
+@@ -226,3 +226,11 @@
+   initBlogSuche();
+   initKontaktFormular();
+ })();
++
++const suchparameter = new URLSearchParams(location.search);
++const box = document.getElementById("hinweisbox");
++if (box) {
++  var name = suchparameter.get("name");
++  box.innerHTML = "Hallo " + name;
++}
++let ungenutzt = 1;

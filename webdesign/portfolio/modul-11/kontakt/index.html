@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt | AnsibleArtisan4711</title>
+  <meta name="description" content="Kontakt zu AnsibleArtisan4711: Nachricht per Formular senden (Beispielinhalt).">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+  <header class="site-header">
+    <a class="site-name" href="../index.html">AnsibleArtisan4711</a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="../index.html">Start</a></li>
+        <li><a href="../lebenslauf/index.html">Lebenslauf</a></li>
+        <li><a href="../projekte/index.html">Projekte</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html" aria-current="page">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="inhalt">
+    <h1>Kontakt</h1>
+    <p class="lesetext">Schreib mir eine Nachricht. Felder ohne den Zusatz „optional“ sind Pflichtfelder. Das Formular ist ein Beispiel: Es sendet noch an keinen Server (siehe Modul 12 und 19).</p>
+
+    <form class="formular" action="danke/index.html" method="post">
+      <div class="feld">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <div class="feld">
+        <label for="mail">E-Mail-Adresse</label>
+        <input id="mail" name="mail" type="email" autocomplete="email" required aria-describedby="mail-hinweis">
+        <p id="mail-hinweis" class="feld-hinweis">Format: name@beispiel.at</p>
+      </div>
+
+      <div class="feld">
+        <label for="betreff">Betreff</label>
+        <select id="betreff" name="betreff" required>
+          <option value="">Bitte wählen</option>
+          <option value="frage">Allgemeine Frage</option>
+          <option value="projekt">Projektanfrage</option>
+          <option value="sonstiges">Sonstiges</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Ich schreibe als (optional)</legend>
+        <label class="auswahl"><input type="radio" name="rolle" value="recruiter"> Recruiter/in</label>
+        <label class="auswahl"><input type="radio" name="rolle" value="ausbildung"> Ausbilder/in</label>
+        <label class="auswahl"><input type="radio" name="rolle" value="sonstige" checked> Sonstige</label>
+      </fieldset>
+
+      <div class="feld">
+        <label for="nachricht">Nachricht</label>
+        <textarea id="nachricht" name="nachricht" rows="5" minlength="10" maxlength="1000" required aria-describedby="nachricht-hinweis"></textarea>
+        <p id="nachricht-hinweis" class="feld-hinweis">Mindestens 10, höchstens 1000 Zeichen.</p>
+      </div>
+
+      <div class="auswahl">
+        <input id="datenschutz" name="datenschutz" type="checkbox" required>
+        <label for="datenschutz">Ich stimme zu, dass meine Angaben zur Beantwortung der Anfrage verarbeitet werden. (Datenschutzerklärung folgt in Modul 18.)</label>
+      </div>
+
+      <p><button class="btn" type="submit">Nachricht senden</button></p>
+    </form>
+
+    <address class="umbruch">Alternativ per E-Mail: <a href="mailto:kontakt@example.com">kontakt@example.com</a> (Platzhalteradresse).</address>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 AnsibleArtisan4711</p>
+    <nav aria-label="Fußzeile">
+      <ul>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../kontakt/index.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>

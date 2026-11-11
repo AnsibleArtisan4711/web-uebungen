@@ -1,0 +1,42 @@
+/* Filter-Knöpfe */
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-block: var(--space-3);
+}
+
+.chip {
+  min-block-size: 2.75rem;
+  padding-inline: var(--space-3);
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.chip[aria-pressed="true"] {
+  color: var(--color-on-primary);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  font-weight: 700;
+}
+
+.chip:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Platzhalter für per JavaScript eingefügte Bedienelemente (Filter, Suche).
+   Ohne Reservierung springt der Inhalt darunter nach unten (CLS).
+   Werte gemessen: Filter 81 px (>= 412 px Breite) bzw. 133 px (<= 360 px, Knöpfe umbrechen),
+   Suche 72 px. Nur mit JavaScript reserviert – ohne JS bleibt der Slot leer und unsichtbar. */
+.js .js-slot--filter { min-block-size: 5rem; }
+.js .js-slot--suche  { min-block-size: 4.5rem; }
+
+@media (max-width: 26rem) {
+  .js .js-slot--filter { min-block-size: 8.25rem; }
+}

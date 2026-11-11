@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Referrer-Policy</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>Referrer-Policy</h1>
+  <p>Die Seite ruft <code>/echo-referer</code> auf zwei Ursprüngen auf (<code>localhost</code> und <code>127.0.0.1</code> gelten als verschieden) und zeigt, was ankommt. Adresse dieser Seite: <code id="adresse"></code></p>
+  <table><thead><tr><th>Policy</th><th>Gleicher Ursprung</th><th>Anderer Ursprung</th></tr></thead><tbody id="tabelle"></tbody></table>
+  <script src="referrer.js"></script>
+</body>
+</html>

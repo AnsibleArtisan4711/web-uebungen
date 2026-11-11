@@ -1,0 +1,22 @@
+/* Portfolio, Modul 01: erstes externes Stylesheet */
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+
+h1,
+h2 {
+  color: #1a3c6e;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

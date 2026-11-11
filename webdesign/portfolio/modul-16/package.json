@@ -1,0 +1,6 @@
+{
+  "name": "portfolio-modul-16",
+  "private": true,
+  "description": "Portfolio nach Modul 16 (Performance). Keine Abhängigkeiten, Tests mit dem in Node eingebauten Test-Runner.",
+  "scripts": { "test": "node --test", "budget": "node tools/budget-check.js", "serve": "node tools/server.js 8080" }
+}

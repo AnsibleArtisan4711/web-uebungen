@@ -1,0 +1,14 @@
+/* Das hidden-Attribut muss immer gewinnen, auch gegen display-Regeln von Komponenten */
+[hidden] {
+  display: none !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

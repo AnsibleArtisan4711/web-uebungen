@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: sticky im Grid</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.6 (Review): Klebt ein Kopf, der ein Grid-Item ist? Scrolle die Seite und beobachte.
+       Im Test mit Chromium klebt er (wie in der Flex-Spalte). Firefox und Safari sind nicht getestet. */
+    body { padding: 0; }
+    .seite { display: grid; grid-template-rows: auto 1fr; }
+    .kopf { position: sticky; top: 0; background: #1a3c6e; color: #fff; padding: 1rem; }
+    .inhalt { height: 200vh; padding: 1rem; background: linear-gradient(#f5f8fc, #c5d7ee); }
+    .fix { display: flex; flex-direction: column; }
+  </style>
+</head>
+<body>
+  <div class="seite" id="grid"><header class="kopf">Kopf (sticky, im Grid)</header><main class="inhalt">Lang scrollen und den Kopf beobachten.</main></div>
+  <!-- Zum Vergleich: ersetze class="seite" durch class="fix" in der ersten Zeile -->
+</body>
+</html>

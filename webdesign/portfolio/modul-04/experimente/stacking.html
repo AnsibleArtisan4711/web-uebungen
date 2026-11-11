@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Stacking Context</title>
+  <style>
+    /* Aufgabe 04.6: Das Overlay hat z-index 9999 und liegt trotzdem hinter der Seitenleiste.
+       Finde die Ursache in den DevTools (Reiter Layers oder Computed). */
+    body { margin: 0; height: 300px; position: relative; }
+    .seitenleiste { position: absolute; top: 0; left: 0; width: 200px; height: 200px;
+                    background: #1a3c6e; color: #fff; z-index: 5; }
+    .huelle { position: relative; transform: translateX(0); }   /* neuer Stacking Context */
+    .overlay { position: absolute; top: 20px; left: 20px; width: 250px; height: 120px;
+               background: rgba(220, 20, 60, 0.85); color: #fff; z-index: 9999; }
+  </style>
+</head>
+<body>
+  <div class="huelle">
+    <div class="overlay">Overlay (z-index 9999)</div>
+  </div>
+  <div class="seitenleiste">Seitenleiste (z-index 5)</div>
+</body>
+</html>

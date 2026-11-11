@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Subresource Integrity</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>Subresource Integrity</h1>
+  <p>Dieselbe Datei wird zweimal eingebunden: einmal mit dem richtigen Hash, einmal mit einem falschen (so, als hätte jemand die Datei verändert).</p>
+  <table><thead><tr><th>Einbindung</th><th>Ergebnis</th></tr></thead><tbody id="tabelle"></tbody></table>
+  <script src="sri.js"></script>
+</body>
+</html>

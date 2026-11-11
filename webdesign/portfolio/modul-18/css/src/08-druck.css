@@ -1,0 +1,11 @@
+@media print {
+  nav,
+  .skip-link,
+  footer {
+    display: none;
+  }
+
+  body {
+    inline-size: auto;
+  }
+}

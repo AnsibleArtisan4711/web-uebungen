@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Container Query oder Media Query</title>
+  <style>
+    /* Aufgabe 07.4: Dieselbe Karte steht in einer breiten Hauptspalte und in einer schmalen Seitenleiste.
+       Die Media Query kennt nur den Viewport. Die Container Query kennt den Platz der Karte. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; }
+    .seite { display: grid; gap: 1rem; grid-template-columns: 2fr 1fr; }
+    .slot { container-type: inline-size; container-name: karte; }
+    .karte { display: grid; gap: 0.5rem; padding: 1rem; background: #eef3fa; border: 1px solid #c5d7ee; }
+    .bild  { background: #1a3c6e; color: #fff; padding: 1rem; }
+
+    /* A: nach Viewport (falsch für wiederverwendbare Komponenten) */
+    @media (min-width: 40em) { .variante-a .karte { grid-template-columns: 8rem 1fr; } }
+
+    /* B: nach Container */
+    @container karte (min-width: 28rem) { .variante-b .karte { grid-template-columns: 8rem 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Variante A: Media Query</h1>
+  <div class="seite variante-a">
+    <div class="slot"><div class="karte"><div class="bild">Bild</div><p>Karte in der Hauptspalte</p></div></div>
+    <div class="slot"><div class="karte"><div class="bild">Bild</div><p>Karte in der Seitenleiste</p></div></div>
+  </div>
+
+  <h1>Variante B: Container Query</h1>
+  <div class="seite variante-b">
+    <div class="slot"><div class="karte"><div class="bild">Bild</div><p>Karte in der Hauptspalte</p></div></div>
+    <div class="slot"><div class="karte"><div class="bild">Bild</div><p>Karte in der Seitenleiste</p></div></div>
+  </div>
+</body>
+</html>

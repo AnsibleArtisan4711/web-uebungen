@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Video und Audio zugänglich einbinden</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 1rem; max-width: 40rem; line-height: 1.5; }
+    video { max-width: 100%; height: auto; }
+    :focus-visible { outline: 3px solid #1a73e8; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <h1>Medien</h1>
+  <h2>Video mit Untertiteln</h2>
+  <!-- Kein autoplay. controls = Bedienelemente per Tastatur. track = Untertitel (WebVTT). -->
+  <video controls preload="metadata" poster="../media/demo-poster.png" width="640" height="360">
+    <source src="../media/demo.webm" type="video/webm">
+    <source src="../media/demo.mp4" type="video/mp4">
+    <track kind="captions" src="../media/demo.de.vtt" srclang="de" label="Deutsch" default>
+    <p>Dein Browser kann das Video nicht abspielen. <a href="../media/demo.mp4">Video herunterladen</a>.</p>
+  </video>
+
+  <h2>Audio mit Transkript</h2>
+  <audio controls preload="none" src="../media/demo.mp3"></audio>
+  <details>
+    <summary>Transkript anzeigen</summary>
+    <p>Hier steht der gesprochene Text der Audiodatei (Platzhalter).</p>
+  </details>
+</body>
+</html>

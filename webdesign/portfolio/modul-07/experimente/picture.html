@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: srcset, sizes und picture</title>
+  <style>
+    img { max-width: 100%; height: auto; display: block; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; }
+  </style>
+</head>
+<body>
+  <!-- Aufgabe 07.7 (a): gleiches Motiv in drei Auflösungen. Prüfe in den DevTools (Network),
+       welche Datei bei verschiedenen Fensterbreiten geladen wird (currentSrc). -->
+  <h1>Auflösungswechsel</h1>
+  <img src="../img/projekt-a-800.png" width="800" height="450"
+       srcset="../img/projekt-a-400.png 400w, ../img/projekt-a-800.png 800w, ../img/projekt-a-1600.png 1600w"
+       sizes="(min-width: 64em) 50vw, 100vw"
+       alt="Platzhalter-Illustration mit blauem Verlauf und der Aufschrift Projekt A">
+
+  <!-- Aufgabe 07.7 (b): Art Direction. Schmal: quadratischer Ausschnitt, breit: Querformat. Zusätzlich WebP. -->
+  <h1>Art Direction und Formate</h1>
+  <picture>
+    <source media="(min-width: 48em)" type="image/webp" srcset="../img/projekt-a-800.webp">
+    <source media="(min-width: 48em)" srcset="../img/projekt-a-800.png">
+    <source type="image/webp" srcset="../img/projekt-a-quadrat-400.webp">
+    <img src="../img/projekt-a-quadrat-400.png" width="400" height="400"
+         alt="Platzhalter-Illustration mit blauem Verlauf und der Aufschrift Projekt A">
+  </picture>
+
+  <!-- Aufgabe 07.7 (c): reines Zierbild, leeres alt -->
+  <h1>Dekoratives Bild</h1>
+  <img src="../img/projekt-b-400.png" width="400" height="225" alt="">
+</body>
+</html>

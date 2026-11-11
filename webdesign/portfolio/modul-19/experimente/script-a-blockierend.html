@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Skript im head ohne defer</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/main.js?delay=800"></script>
+</head>
+<body>
+  <header class="site-header"><span class="site-header__name">AnsibleArtisan4711</span></header>
+  <main id="inhalt">
+    <h1>Hallo, ich bin AnsibleArtisan4711</h1>
+    <p>Testseite für Render-Blocking. Der sichtbare Text steht sofort im HTML. Gemessen wird, wann der Browser ihn zum ersten Mal zeichnet (First Contentful Paint).</p>
+    <p id="ergebnis" role="status">Noch nicht gemessen.</p>
+  </main>
+  <script src="render-messung.js"></script>
+</body>
+</html>

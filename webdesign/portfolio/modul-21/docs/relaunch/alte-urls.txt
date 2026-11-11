@@ -1,0 +1,11 @@
+# Alte Adressen der (erfundenen) bisherigen Seite, zum Beispiel aus einem Crawl und der Search Console
+/index.php
+/index.php?id=2
+/index.php?id=3
+/kontakt.html
+/ueber-mich.html
+/referenzen/projekt-1.html
+/referenzen/projekt-2.html
+/downloads/lebenslauf.pdf
+/blog/2019/erster-beitrag.html
+/impressum.html

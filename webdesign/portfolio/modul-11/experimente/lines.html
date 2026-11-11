@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Grid Lines und Platzierung</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.3: Ein Element über alle Spalten eines 4-spaltigen Grids, auf zwei Arten, plus benannte Linien. */
+    .g { display: grid; gap: 0.5rem; grid-template-columns: repeat(4, 1fr); margin-block-end: 1.5rem; }
+    .a { grid-column: 1 / -1; }
+    .b { grid-column: 1 / 5; }
+    .c { grid-column: span 4; }
+    .d { grid-column: 2 / span 2; }
+    .seite { display: grid; grid-template-columns: [voll-start] 1fr [inhalt-start] minmax(0, 30rem) [inhalt-ende] 1fr [voll-ende]; margin-inline: -1rem; }
+    .bild { grid-column: voll-start / voll-ende; background: #1a3c6e; color: #fff; padding: 1rem; }
+    .text { grid-column: inhalt-start / inhalt-ende; }
+  </style>
+</head>
+<body>
+  <h1>1 / -1, 1 / 5 und span 4</h1>
+  <div class="g"><div class="kasten a">1 / -1</div><div class="kasten">1</div><div class="kasten">2</div><div class="kasten">3</div><div class="kasten">4</div>
+    <div class="kasten b">1 / 5</div><div class="kasten c">span 4</div><div class="kasten d">2 / span 2</div></div>
+  <h1>Benannte Linien: Bild über die volle Breite, Text begrenzt</h1>
+  <div class="seite"><div class="bild">volle Breite</div><p class="text">Der Text steht zwischen inhalt-start und inhalt-ende und ist höchstens 30rem breit.</p></div>
+</body>
+</html>

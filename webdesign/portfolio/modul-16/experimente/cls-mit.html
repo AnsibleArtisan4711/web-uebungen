@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Layoutverschiebung durch Bilder (mit width/height)</title>
+  <style>body { font-family: system-ui, sans-serif; margin: 1rem; max-width: 50rem; } img { max-width: 100%; height: auto; display: block; }</style>
+</head>
+<body>
+  <h1>Bild mit Größenangabe</h1>
+  <!-- Das Bild kommt beim Test (tools/server.js) 800 ms verspätet -->
+  <img src="bilder/hero-1600.jpg?delay=800" width="1600" height="800" alt="Abstrakter Farbverlauf (Testbild)">
+  <p>Dieser Text steht unter dem Bild. Kommt das Bild ohne reservierten Platz, springt er nach unten.</p>
+</body>
+</html>

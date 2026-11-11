@@ -1,0 +1,48 @@
+{
+  "name": "portfolio-modul-20",
+  "private": true,
+  "description": "Portfolio nach Modul 20 (Qualitätssicherung, Validierung, Wartbarkeit). Die Seite selbst braucht keine Abhängigkeiten; Werkzeuge stehen in devDependencies.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "css": "node tools/css-bauen.js",
+    "css:pruefen": "node tools/css-bauen.js --pruefen",
+    "lint:css": "stylelint \"css/src/**/*.css\"",
+    "lint:js": "eslint js tools tests e2e playwright.config.js",
+    "format:pruefen": "prettier --check \"css/src/**/*.css\" \"js/**/*.js\" \"e2e/**/*.js\" playwright.config.js",
+    "lint": "npm run lint:css && npm run lint:js",
+    "validate:html": "html-validate 404.html index.html blog kontakt lebenslauf projekte styleguide impressum datenschutz",
+    "validate:w3c": "node tools/validate-w3c.js",
+    "namen": "node tools/naming-check.js",
+    "doku": "node tools/doku-check.js",
+    "build": "node tools/dist-bauen.js",
+    "budget": "node tools/budget-check.js",
+    "security": "node tools/security-check.js",
+    "links": "node tools/linkcheck.js",
+    "serve": "node tools/server.js 8080",
+    "serve:dist": "node tools/server.js 8080 dist",
+    "e2e": "playwright test",
+    "e2e:baseline": "playwright test e2e/visuell.spec.js --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "autoprefixer": "^10.4.0",
+    "cssnano": "^7.0.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.0.0",
+    "html-validate": "^11.19.0",
+    "postcss": "^8.4.0",
+    "prettier": "^3.0.0",
+    "stylelint": "^18.0.0",
+    "stylelint-config-standard": "^41.0.0",
+    "vnu-jar": "^26.11.4"
+  }
+}

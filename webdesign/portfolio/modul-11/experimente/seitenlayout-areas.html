@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Seitenlayout mit grid-template-areas</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; }
+    .kasten { background: #c5d7ee; padding: 0.75rem 1rem; border: 1px solid #1a3c6e; }
+    /* Aufgabe 11.1 und 11.4: Mobil einspaltig, ab 60em zweispaltig. Die Quelltextreihenfolge bleibt kopf, navi, inhalt, fuss. */
+    body { padding: 0; }
+    .seite { display: grid; min-height: 100svh; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto;
+             grid-template-areas: "kopf" "navi" "inhalt" "fuss"; }
+    @media (min-width: 60em) {
+      .seite { grid-template-columns: 16rem minmax(0, 1fr); grid-template-rows: auto 1fr auto;
+               grid-template-areas: "kopf kopf" "navi inhalt" "fuss fuss"; }
+    }
+    .kopf { grid-area: kopf; } .navi { grid-area: navi; } .inhalt { grid-area: inhalt; } .fuss { grid-area: fuss; }
+  </style>
+</head>
+<body>
+  <div class="seite">
+    <header class="kasten kopf">Kopf</header>
+    <nav class="kasten navi" aria-label="Beispielnavigation">Navi</nav>
+    <main class="kasten inhalt">Inhalt</main>
+    <footer class="kasten fuss">Fuß</footer>
+  </div>
+</body>
+</html>

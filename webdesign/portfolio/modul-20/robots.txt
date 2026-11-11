@@ -1,0 +1,5 @@
+# Alle Crawler dürfen alles crawlen. Nicht zu indexierende Seiten tragen noindex im HTML.
+User-agent: *
+Disallow:
+
+Sitemap: https://example.com/portfolio/sitemap.xml

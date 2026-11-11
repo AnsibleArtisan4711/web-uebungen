@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: iframe-Sandbox</title>
+  <link rel="stylesheet" href="experiment.css">
+</head>
+<body>
+  <h1>iframe-Sandbox</h1>
+  <p>Dasselbe Widget in vier iframes mit unterschiedlichem <code>sandbox</code>. Jedes Widget meldet per <code>postMessage</code>, was es darf.</p>
+  <table><thead><tr><th>Variante</th><th>Skript</th><th>localStorage</th><th>Zugriff aufs Elternfenster</th><th>Eltern sieht Dokument</th></tr></thead><tbody id="tabelle"></tbody></table>
+  <div id="rahmen"></div>
+  <script src="iframe-sandbox.js"></script>
+</body>
+</html>

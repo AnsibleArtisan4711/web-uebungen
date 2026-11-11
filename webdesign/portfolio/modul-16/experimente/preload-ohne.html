@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Schrift ohne Preload</title>
+  <!-- Das Stylesheet kommt beim Test (tools/server.js) 600 ms verspätet. Der Browser entdeckt die Schrift erst, wenn er das CSS hat. -->
+  <link rel="stylesheet" href="preload-demo.css?delay=600">
+</head>
+<body>
+  <h1>Ohne Preload</h1>
+  <p>Beispieltext in der Webschrift.</p>
+</body>
+</html>

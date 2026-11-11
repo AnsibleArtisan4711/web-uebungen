@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Flexbox und Grid im Überblick</title>
+  <style>
+    /* Aufgabe 05.1: Flexbox für eine Richtung, Grid für das Seitenraster. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 1rem; }
+    .nav   { display: flex; gap: 1rem; align-items: center; padding: 0.5rem; background: #eef3fa; }
+    .seite { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1rem; }
+    .seite > * { padding: 1rem; background: #c5d7ee; }
+    @media (min-width: 60em) { .seite { grid-template-columns: 18rem 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="nav"><a href="#">Start</a><a href="#">Projekte</a><a href="#">Blog</a></div>
+  <div class="seite">
+    <aside>Seitenleiste</aside>
+    <main>Hauptinhalt</main>
+  </div>
+</body>
+</html>

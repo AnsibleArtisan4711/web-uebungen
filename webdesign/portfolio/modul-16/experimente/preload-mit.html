@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: Schrift mit Preload</title>
+  <!-- crossorigin ist auch bei gleicher Herkunft Pflicht, sonst wird die Schrift doppelt geladen -->
+  <link rel="preload" href="fonts/dejavu-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="preload-demo.css?delay=600">
+</head>
+<body>
+  <h1>Mit Preload</h1>
+  <p>Beispieltext in der Webschrift.</p>
+</body>
+</html>

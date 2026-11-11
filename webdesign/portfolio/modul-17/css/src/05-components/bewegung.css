@@ -1,0 +1,24 @@
+@keyframes einblenden {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Bewegung nur, wenn der Nutzer sie nicht abgeschaltet hat */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .karten .karte,
+  .blog-layout__liste .karte {
+    /* Kein fill-mode "both": Ein bleibender Endzustand aus der Animation würde das Hover-Transform der Karte überstimmen */
+    animation: einblenden 0.4s ease-out;
+  }
+}

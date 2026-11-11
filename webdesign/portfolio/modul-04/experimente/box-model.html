@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experiment: content-box und border-box</title>
+  <style>
+    /* Aufgabe 04.1: Messe in den DevTools (Reiter Computed, Box-Modell-Diagramm). */
+    .box { width: 400px; padding: 30px; border: 10px solid #333; background: #dbe7f5; margin-bottom: 1rem; }
+    .a { box-sizing: content-box; }
+    .b { box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <div class="box a">A: content-box</div>
+  <div class="box b">B: border-box</div>
+</body>
+</html>
